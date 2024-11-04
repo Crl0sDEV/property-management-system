@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction - MarJuan Apartments</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            background-color: #555;
+            padding-top: 20px;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            color: white;
+            background-color: #555;
+            border-radius: 8px;
+            margin: 10px;
+            text-align: center;
+        }
+
+        .sidebar a:hover {
+            background-color: #444;
+        }
+
+        .sidebar a.active {
+            background-color: #FFC63E;
+            color: black;
+        }
+
+        /* Main content styling */
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px;
+        }
+
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table th, table td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #333;
+            color: white;
+            font-weight: bold;
+        }
+
+        table td {
+            background-color: white;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .btn-message {
+            background-color: #28a745; /* Message button - green */
+        }
+
+        .btn-exit {
+            background-color: #ff6347; /* Exit button - tomato red */
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.4); 
+            padding-top: 60px; 
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 600px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .payment-history {
+            margin-top: 20px;
+        }
+
+        /* Message Modal */
+        .message-modal {
+            display: none; 
+        }
+        
+        .message-modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 600px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="dashboard.html">DASHBOARD</a>
+        <a href="tenant-info.html">TENANTS</a>
+        <a href="occupancy.html">OCCUPANCY</a>
+        <a href="transact.html" class="active">TRANSACTION</a>
+        <a href="room.html">ROOM</a>
+        <a href="finance.html">FINANCE</a> 
+        <a href="account.html">ACCOUNT</a>
+        <a href="#" id="logoutBtn">LOG OUT</a> <!-- Log Out Button -->
+    </div>
+
+
+    <div class="content">
+        <h1>Transaction Overview</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tenant Name</th>
+                    <th>Amount Paid</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>BIANCA</td>
+                    <td>₱5000</td>
+                    <td>PAID</td>
+                    <td>
+                        <button class="btn btn-message" onclick="openMessageModal('BIANCA')">Message</button>
+                        <button class="btn btn-exit">Exit</button>
+                        <button class="btn" onclick="viewPaymentHistory('BIANCA')">View Details</button>
+                    </td>
+                </tr>
+                 
+                <tr> 
+                    <tr>
+                        <td>MIGUEL</td>
+                        <td>₱5000</td>
+                        <td>DUE</td>
+                        <td>
+                            <button class="btn btn-message" onclick="openMessageModal('Jane Smith')">Message</button>
+                            <button class="btn btn-exit">Exit</button>
+                            <button class="btn" onclick="viewPaymentHistory('Jane Smith')">View Details</button>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>Jane</td>
+                        <td>₱5000</td>
+                        <td>DUE</td>
+                        <td>
+                            <button class="btn btn-message" onclick="openMessageModal('Jane Smith')">Message</button>
+                            <button class="btn btn-exit">Exit</button>
+                            <button class="btn" onclick="viewPaymentHistory('Jane Smith')">View Details</button>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>Smith</td>
+                        <td>₱5000</td>
+                        <td>PAID</td>
+                        <td>
+                            <button class="btn btn-message" onclick="openMessageModal('Jane Smith')">Message</button>
+                            <button class="btn btn-exit">Exit</button>
+                            <button class="btn" onclick="viewPaymentHistory('Jane Smith')">View Details</button>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>CARL</td>
+                        <td>₱5000</td>
+                        <td>PAID</td>
+                        <td>
+                            <button class="btn btn-message" onclick="openMessageModal('Jane Smith')">Message</button>
+                            <button class="btn btn-exit">Exit</button>
+                            <button class="btn" onclick="viewPaymentHistory('Jane Smith')">View Details</button>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>JM</td>
+                        <td>₱300</td>
+                        <td>PAID</td>
+                        <td>
+                            <button class="btn btn-message" onclick="openMessageModal('Jane Smith')">Message</button>
+                            <button class="btn btn-exit">Exit</button>
+                            <button class="btn" onclick="viewPaymentHistory('Jane Smith')">View Details</button>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>VICTORIA</td>
+                        <td>₱300</td>
+                        <td>PAID</td>
+                        <td>
+                            <button class="btn btn-message" onclick="openMessageModal('Jane Smith')">Message</button>
+                            <button class="btn btn-exit">Exit</button>
+                            <button class="btn" onclick="viewPaymentHistory('Jane Smith')">View Details</button>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>RAUL</td>
+                        <td>₱300</td>
+                        <td>DUE</td>
+                        <td>
+                            <button class="btn btn-message" onclick="openMessageModal('Jane Smith')">Message</button>
+                            <button class="btn btn-exit">Exit</button>
+                            <button class="btn" onclick="viewPaymentHistory('Jane Smith')">View Details</button>
+                        </td>
+                    </tr>
+                </tr>
+                    <td>WILBERT</td>
+                    <td>₱300</td>
+                    <td>DUE</td>
+                    <td>
+                        <button class="btn btn-message" onclick="openMessageModal('Jane Smith')">Message</button>
+                        <button class="btn btn-exit">Exit</button>
+                        <button class="btn" onclick="viewPaymentHistory('Jane Smith')">View Details</button>
+                    </td>
+                </tr>
+                <!-- Add more tenant rows as needed -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal for Payment History -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePaymentModal()">&times;</span>
+            <h2>Payment History for <span id="tenant-name"></span></h2>
+            <div class="payment-history">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="payment-history-body">
+                        <!-- Payment history will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Sending Message -->
+    <div id="messageModal" class="modal message-modal">
+        <div class="message-modal-content">
+            <span class="close" onclick="closeMessageModal()">&times;</span>
+            <h2>Send Message to <span id="tenant-name-message"></span></h2>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" rows="5"></textarea>
+            </div>
+            <button class="btn" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Get modal elements
+        var paymentModal = document.getElementById("paymentModal");
+        var tenantNameSpan = document.getElementById("tenant-name");
+        var paymentHistoryBody = document.getElementById("payment-history-body");
+        
+        var messageModal = document.getElementById("messageModal");
+        var tenantNameMessageSpan = document.getElementById("tenant-name-message");
+        var messageInput = document.getElementById("message");
+
+        // Function to view payment history
+        function viewPaymentHistory(tenantName) {
+            tenantNameSpan.textContent = tenantName;
+
+            // Example of populating payment history based on tenant
+            paymentHistoryBody.innerHTML = `
+                <tr><td>2024-01-01</td><td>$200</td><td>Paid</td></tr>
+                <tr><td>2024-02-01</td><td>$300</td><td>Paid</td></tr>
+                <tr><td>2024-03-01</td><td>$300</td><td>Due</td></tr>
+            `;
+
+            // Show the payment history modal
+            paymentModal.style.display = "block";
+        }
+
+        // Close the payment history modal
+        function closePaymentModal() {
+            paymentModal.style.display = "none";
+        }
+
+        // Function to open message modal
+        function openMessageModal(tenantName) {
+            tenantNameMessageSpan.textContent = tenantName;
+            messageInput.value = ''; // Clear the message input field
+            messageModal.style.display = "block";
+        }
+
+        // Close the message modal
+        function closeMessageModal() {
+            messageModal.style.display = "none";
+        }
+
+        // Function to send message
+        function sendMessage() {
+            var message = messageInput.value;
+            if (message) {
+                alert("Message sent to " + tenantNameMessageSpan.textContent + ": " + message);
+                closeMessageModal(); // Close the modal after sending
+            } else {
+                alert("Please enter a message before sending.");
+            }
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target == paymentModal) {
+                closePaymentModal();
+            }
+            if (event.target == messageModal) {
+                closeMessageModal();
+            }
+        } 
+        // Log Out Button Functionality
+        document.getElementById('logoutBtn').onclick = function() {
+            window.location.href = 'log in.html'; // Change this to your actual login page URL
+        } 
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            background-color: #555;
+            padding-top: 20px;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            color: white;
+            background-color: #555;
+            border-radius: 8px;
+            margin: 10px;
+            text-align: center;
+        }
+
+        .sidebar a:hover {
+            background-color: #444;
+        }
+
+        .sidebar a.active {
+            background-color: #FFC63E;
+            color: black;
+        }
+
+        /* Main content */
+        .content {
+            margin-left: 260px; /* Leave space for the sidebar */
+            padding: 20px;
+            flex: 1;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .box-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .box h3 {
+            margin-bottom: 10px;
+        }
+
+        /* Buttons */
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            margin: 5px 0;
+            border: none;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="dashboard.html" class="active">DASHBOARD</a>
+        <a href="tenant-info.html">TENANTS</a>
+        <a href="occupancy.html">OCCUPANCY</a>
+        <a href="transact.html">TRANSACTION</a>
+        <a href="room.html">ROOM</a>
+        <a href="finance.html">FINANCE</a> 
+        <a href="account.html">ACCOUNT</a> 
+        <a href="#" id="logoutBtn">LOG OUT</a> <!-- Log Out Button -->
+    </div>
+        </div>
+        
+        <div class="content">
+            <h2>Dashboard</h2>
+            
+            <div class="box-container">
+                <div class="box">
+                    <h3>Tenants: Exit/Archive</h3>
+                    <p><strong>Tenant Name:</strong> John Doe</p>
+                    <p><strong>Stay Duration:</strong> 1 year, 2 months</p>
+                    <p><strong>Start Date:</strong> Jan 1, 2023</p>
+                    <p><strong>End Date:</strong> March 1, 2024</p>
+                    <button onclick="viewDetails()">View Details</button>
+                    <button onclick="archiveTenant()">Archive</button>
+                    <button onclick="editTenant()">Edit</button>
+                </div>
+                
+                <div class="box">
+                    <h3>Occupancy: Room Availability/Occupied</h3>
+                    <p><strong>Room 101:</strong> Occupied</p>
+                    <p><strong>Tenant:</strong> John Doe</p>
+                    <button onclick="editRoom()">Edit</button>
+                </div>
+                
+                <div class="box">
+                    <h3>Transaction: Payment/Charge/Exit</h3>
+                    <p><strong>Tenant Name:</strong> John Doe</p>
+                    <p><strong>Payment Status:</strong> Up to date</p>
+                    <p><strong>Last Payment Date:</strong> February 1, 2024</p>
+                    <button onclick="sendMessage()">Message</button>
+                    <button onclick="exitTenant()">Exit</button>
+                    <button onclick="viewTransactionDetails()">View Details</button>
+                </div>
+                
+                <div class="box">
+                    <h3>Room: Charge/No Charge</h3>
+                    <p><strong>Room 101:</strong> No damages reported</p>
+                    <button onclick="documentDamage()">Document Damage</button>
+                    <p><strong>Room 102:</strong> Damage reported: Broken window</p>
+                    <button onclick="documentDamage()">Document Damage</button>
+                </div>
+                
+                <div class="box">
+                    <h3>Finance: Monthly Report/Charge History</h3>
+                    <button onclick="generateReport()">Generate Monthly Report</button>
+                    <button onclick="viewChargeHistory()">View Charge History</button>
+                    <p><strong>Monthly Income:</strong> $2,500</p>
+                    <p><strong>Monthly Maintenance:</strong> $300</p>
+                    <p><strong>Total Damages Charges:</strong> $150</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function viewDetails() {
+            alert("Viewing tenant details.");
+        }
+
+        function archiveTenant() {
+            alert("Archiving tenant.");
+        }
+
+        function editTenant() {
+            alert("Editing tenant details.");
+        }
+
+        function editRoom() {
+            alert("Editing room details.");
+        }
+
+        function sendMessage() {
+            alert("Sending message to tenant.");
+        }
+
+        function exitTenant() {
+            alert("Exiting tenant from room.");
+        }
+
+        function viewTransactionDetails() {
+            alert("Viewing transaction details.");
+        }
+
+        function documentDamage() {
+            alert("Documenting damage.");
+        }
+
+        function generateReport() {
+            alert("Generating monthly report.");
+        }
+
+        function viewChargeHistory() {
+            alert("Viewing charge history.");
+        }
+    </script>
+</body>
+</html>

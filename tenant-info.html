@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tenant Information - MarJuan Apartments</title>
+    <link rel="stylesheet" href="css/tenant-info.css" />
+  </head>
+  <body>
+    <div class="sidebar">
+      <a href="dashboard.html">DASHBOARD</a>
+      <a href="tenant-info.html" class="active">TENANTS</a>
+      <a href="occupancy.html">OCCUPANCY</a>
+      <a href="transact.html">TRANSACTION</a>
+      <a href="room.html">ROOM</a>
+      <a href="finance.html">FINANCE</a>
+      <a href="account.html">ACCOUNT</a>
+      <a href="#" id="logoutBtn">LOG OUT</a>
+    </div>
+
+    <div class="content">
+        <div class="add-tenant-btn">
+            <button onclick="window.location.href='addTenant/addtenants.html'">Add Tenant</button>
+          </div>
+          
+      <h1>Tenant Information</h1>
+      <h2>Current Tenants</h2>
+      <table id="currentTenants">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Unit Color</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Tenant rows go here -->
+        </tbody>
+      </table>
+
+      <h2>Archived Tenants</h2>
+      <table id="archivedTenants">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Unit Color</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Archived tenants will be appended here -->
+        </tbody>
+      </table>
+    </div>
+
+    <div id="tenantModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Tenant Details</h2>
+        <p><strong>Date:</strong> <span id="tenantDate"></span></p>
+        <p><strong>Name:</strong> <span id="tenantName"></span></p>
+        <p><strong>Birthday:</strong> <span id="tenantBirthday"></span></p>
+        <p><strong>Birth Place:</strong> <span id="tenantBirthplace"></span></p>
+        <p>
+          <strong>Nationality:</strong> <span id="tenantNationality"></span>
+        </p>
+        <p>
+          <strong>Civil Status:</strong> <span id="tenantCivilstatus"></span>
+        </p>
+        <p>
+          <strong>Previous Address:</strong>
+          <span id="tenantPreviousaddress"></span>
+        </p>
+        <p><strong>Province:</strong> <span id="tenantProvince"></span></p>
+        <p><strong>Occupation:</strong> <span id="tenantOccupation"></span></p>
+        <p>
+          <strong>Address of Workplace:</strong>
+          <span id="tenantAddressofworkplace"></span>
+        </p>
+        <p>
+          <strong>Phone Number:</strong> <span id="tenantPhonenumber"></span>
+        </p>
+        <p>
+          <strong>Email Address:</strong> <span id="tenantEmailaddress"></span>
+        </p>
+        <p>
+          <strong>Emergency Contact Number:</strong>
+          <span id="tenantEmergencycontactnumber"></span>
+        </p>
+        <p><strong>Spouse Name:</strong> <span id="tenantSpousename"></span></p>
+        <p>
+          <strong>Spouse Occupation:</strong>
+          <span id="tenantSpouseoccupation"></span>
+        </p>
+        <p>
+          <strong>Spouse Workplace Address:</strong>
+          <span id="tenantSpouseworkplaceaddress"></span>
+        </p>
+        <p>
+          <strong>Tenant Phone Number:</strong>
+          <span id="tenantTenantphonenumber"></span>
+        </p>
+        <p>
+          <strong>Number of Tenants:</strong>
+          <span id="tenantNumberoftenants"></span>
+        </p>
+        <p><strong>Unit Color:</strong> <span id="tenantUnitcolor"></span></p>
+        <button
+          class="edit"
+          onclick="showEdit(
+                document.getElementById('tenantDate').innerText,
+                document.getElementById('tenantName').innerText,
+                document.getElementById('tenantBirthday').innerText,
+                document.getElementById('tenantBirthplace').innerText,
+                document.getElementById('tenantNationality').innerText,
+                document.getElementById('tenantCivilstatus').innerText,
+                document.getElementById('tenantPreviousaddress').innerText,
+                document.getElementById('tenantProvince').innerText,
+                document.getElementById('tenantOccupation').innerText,
+                document.getElementById('tenantAddressofworkplace').innerText,
+                document.getElementById('tenantPhonenumber').innerText,
+                document.getElementById('tenantEmailaddress').innerText,
+                document.getElementById('tenantEmergencycontactnumber').innerText,
+                document.getElementById('tenantSpousename').innerText,
+                document.getElementById('tenantSpouseoccupation').innerText,
+                document.getElementById('tenantSpouseworkplaceaddress').innerText,
+                document.getElementById('tenantTenantphonenumber').innerText,
+                document.getElementById('tenantNumberoftenants').innerText,
+                document.getElementById('tenantUnitcolor').innerText
+            )"
+        >
+          Edit
+        </button>
+      </div>
+    </div>
+
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeEditModal()">&times;</span>
+        <h2>Edit Tenant Information</h2>
+        <form id="editForm" onsubmit="return updateTenant(event)">
+          <div class="form-group">
+            <label for="editDate">Date:</label>
+            <input type="date" id="editDate" required />
+          </div>
+          <div class="form-group">
+            <label for="editName">Name:</label>
+            <input type="text" id="editName" required />
+          </div>
+          <div class="form-group">
+            <label for="editBirthday">Birthday:</label>
+            <input type="date" id="editBirthday" required />
+          </div>
+          <div class="form-group">
+            <label for="editBirthplace">Birth Place:</label>
+            <input type="text" id="editBirthplace" required />
+          </div>
+          <div class="form-group">
+            <label for="editNationality">Nationality:</label>
+            <input type="text" id="editNationality" />
+          </div>
+          <div class="form-group">
+            <label for="editCivilstatus">Civil Status:</label>
+            <input type="text" id="editCivilstatus" />
+          </div>
+          <div class="form-group">
+            <label for="editPreviousaddress">Previous Address:</label>
+            <input type="text" id="editPreviousaddress" />
+          </div>
+          <div class="form-group">
+            <label for="editProvince">Province:</label>
+            <input type="text" id="editProvince" />
+          </div>
+          <div class="form-group">
+            <label for="editOccupation">Occupation:</label>
+            <input type="text" id="editOccupation" />
+          </div>
+          <div class="form-group">
+            <label for="editAddressofworkplace">Address of Workplace:</label>
+            <input type="text" id="editAddressofworkplace" />
+          </div>
+          <div class="form-group">
+            <label for="editPhonenumber">Phone Number:</label>
+            <input type="text" id="editPhonenumber" />
+          </div>
+          <div class="form-group">
+            <label for="editEmailaddress">Email Address:</label>
+            <input type="email" id="editEmailaddress" />
+          </div>
+          <div class="form-group">
+            <label for="editEmergencycontactnumber"
+              >Emergency Contact Number:</label
+            >
+            <input type="text" id="editEmergencycontactnumber" />
+          </div>
+          <div class="form-group">
+            <label for="editSpousename">Spouse Name:</label>
+            <input type="text" id="editSpousename" />
+          </div>
+          <div class="form-group">
+            <label for="editSpouseoccupation">Spouse Occupation:</label>
+            <input type="text" id="editSpouseoccupation" />
+          </div>
+          <div class="form-group">
+            <label for="editSpouseworkplaceaddress"
+              >Spouse Workplace Address:</label
+            >
+            <input type="text" id="editSpouseworkplaceaddress" />
+          </div>
+          <div class="form-group">
+            <label for="editTenantphonenumber">Tenant Phone Number:</label>
+            <input type="text" id="editTenantphonenumber" />
+          </div>
+          <div class="form-group">
+            <label for="editNumberoftenants">Number of Tenants:</label>
+            <input type="number" id="editNumberoftenants" />
+          </div>
+          <div class="form-group">
+            <label for="editUnitcolor">Unit Color:</label>
+            <input type="text" id="editUnitcolor" />
+          </div>
+          <button type="submit" class="btn">Update</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      let selectedTenantId; 
+
+      function loadTenants() {
+        fetch("tenant-info.php")
+          .then((response) => response.json())
+          .then((tenants) => {
+            const currentTenantsTable = document
+              .getElementById("currentTenants")
+              .getElementsByTagName("tbody")[0];
+            currentTenantsTable.innerHTML = "";
+
+            tenants.forEach((tenant) => {
+              const row = currentTenantsTable.insertRow();
+              row.innerHTML = `
+                  <td>${tenant.name}</td>
+                  <td>${tenant.unit_color}</td>
+                  <td>${tenant.start_date}</td>
+                  <td>${tenant.end_date}</td>
+                  <td><button class="view-details" onclick="showDetails('${tenant.date}', '${tenant.name}', '${tenant.birthday}', '${tenant.birthplace}', '${tenant.nationality}', '${tenant.civil_status}', '${tenant.previous_address}', '${tenant.province}', '${tenant.occupation}', '${tenant.address_of_workplace}', '${tenant.phone_number}', '${tenant.email_address}', '${tenant.emergency_contact_number}', '${tenant.spouse_name}', '${tenant.spouse_occupation}', '${tenant.spouse_workplace_address}', '${tenant.tenant_phone_number}', '${tenant.number_of_tenants}', '${tenant.unit_color}', '${tenant.id}')">View Details</button>
+                    <button class="archive-btn" onclick="archiveTenant(${tenant.id})">Archive</button>
+                    </td>
+                `;
+            });
+          })
+          .catch((error) => console.error("Error fetching tenants:", error));
+      }
+
+      function showDetails(
+        date,
+        name,
+        birthday,
+        birthplace,
+        nationality,
+        civilstatus,
+        previousaddress,
+        province,
+        occupation,
+        addressofworkplace,
+        phonenumber,
+        emailaddress,
+        emergencycontactnumber,
+        spousename,
+        spouseoccupation,
+        spouseworkplaceaddress,
+        tenantphonenumber,
+        numberoftenants,
+        unitcolor,
+        id
+      ) {
+        document.getElementById("tenantDate").innerText = date;
+        document.getElementById("tenantName").innerText = name;
+        document.getElementById("tenantBirthday").innerText = birthday;
+        document.getElementById("tenantBirthplace").innerText = birthplace;
+        document.getElementById("tenantNationality").innerText = nationality;
+        document.getElementById("tenantCivilstatus").innerText = civilstatus;
+        document.getElementById("tenantPreviousaddress").innerText =
+          previousaddress;
+        document.getElementById("tenantProvince").innerText = province;
+        document.getElementById("tenantOccupation").innerText = occupation;
+        document.getElementById("tenantAddressofworkplace").innerText =
+          addressofworkplace;
+        document.getElementById("tenantPhonenumber").innerText = phonenumber;
+        document.getElementById("tenantEmailaddress").innerText = emailaddress;
+        document.getElementById("tenantEmergencycontactnumber").innerText =
+          emergencycontactnumber;
+        document.getElementById("tenantSpousename").innerText = spousename;
+        document.getElementById("tenantSpouseoccupation").innerText =
+          spouseoccupation;
+        document.getElementById("tenantSpouseworkplaceaddress").innerText =
+          spouseworkplaceaddress;
+        document.getElementById("tenantTenantphonenumber").innerText =
+          tenantphonenumber;
+        document.getElementById("tenantNumberoftenants").innerText =
+          numberoftenants;
+        document.getElementById("tenantUnitcolor").innerText = unitcolor;
+        selectedTenantId = id;
+        document.getElementById("tenantModal").style.display = "block";
+      }
+
+      function closeModal() {
+        document.getElementById("tenantModal").style.display = "none";
+      }
+
+      function showEdit(
+        date,
+        name,
+        birthday,
+        birthplace,
+        nationality,
+        civilstatus,
+        previousaddress,
+        province,
+        occupation,
+        addressofworkplace,
+        phonenumber,
+        emailaddress,
+        emergencycontactnumber,
+        spousename,
+        spouseoccupation,
+        spouseworkplaceaddress,
+        tenantphonenumber,
+        numberoftenants,
+        unitcolor
+      ) {
+        document.getElementById("editDate").value = date;
+        document.getElementById("editName").value = name;
+        document.getElementById("editBirthday").value = birthday;
+        document.getElementById("editBirthplace").value = birthplace;
+        document.getElementById("editNationality").value = nationality;
+        document.getElementById("editCivilstatus").value = civilstatus;
+        document.getElementById("editPreviousaddress").value = previousaddress;
+        document.getElementById("editProvince").value = province;
+        document.getElementById("editOccupation").value = occupation;
+        document.getElementById("editAddressofworkplace").value =
+          addressofworkplace;
+        document.getElementById("editPhonenumber").value = phonenumber;
+        document.getElementById("editEmailaddress").value = emailaddress;
+        document.getElementById("editEmergencycontactnumber").value =
+          emergencycontactnumber;
+        document.getElementById("editSpousename").value = spousename;
+        document.getElementById("editSpouseoccupation").value =
+          spouseoccupation;
+        document.getElementById("editSpouseworkplaceaddress").value =
+          spouseworkplaceaddress;
+        document.getElementById("editTenantphonenumber").value =
+          tenantphonenumber;
+        document.getElementById("editNumberoftenants").value = numberoftenants;
+        document.getElementById("editUnitcolor").value = unitcolor;
+        document.getElementById("editModal").style.display = "block";
+      }
+
+      function closeEditModal() {
+        document.getElementById("editModal").style.display = "none";
+      }
+
+      function updateTenant(event) {
+    event.preventDefault();
+    
+    const data = {
+        id: selectedTenantId,
+        date: document.getElementById("editDate").value,
+        name: document.getElementById("editName").value,
+        birthday: document.getElementById("editBirthday").value,
+        birthplace: document.getElementById("editBirthplace").value,
+        nationality: document.getElementById("editNationality").value,
+        civil_status: document.getElementById("editCivilstatus").value,
+        previous_address: document.getElementById("editPreviousaddress").value,
+        province: document.getElementById("editProvince").value,
+        occupation: document.getElementById("editOccupation").value,
+        address_of_workplace: document.getElementById("editAddressofworkplace").value,
+        phone_number: document.getElementById("editPhonenumber").value,
+        email_address: document.getElementById("editEmailaddress").value,
+        emergency_contact_number: document.getElementById("editEmergencycontactnumber").value,
+        spouse_name: document.getElementById("editSpousename").value,
+        spouse_occupation: document.getElementById("editSpouseoccupation").value,
+        spouse_workplace_address: document.getElementById("editSpouseworkplaceaddress").value,
+        tenant_phone_number: document.getElementById("editTenantphonenumber").value,
+        number_of_tenants: document.getElementById("editNumberoftenants").value,
+        unit_color: document.getElementById("editUnitcolor").value
+    };
+    
+    fetch("update-tenant.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(responseData => {
+        if (responseData.success) {
+            alert("Tenant information updated successfully!");
+            loadTenants();
+        } else {
+            console.error("Error updating tenant:", responseData.error);
+        }
+    })
+    .catch(error => console.error("Error updating tenant:", error));
+
+    closeEditModal();
+}
+
+function archiveTenant(id) {
+            fetch(`archive-tenant.php?id=${id}`, { method: 'POST' })
+                .then((response) => response.json())
+                .then((archivedTenant) => {
+                    if (archivedTenant) {
+                        const currentTenantsTable = document.getElementById("currentTenants").getElementsByTagName("tbody")[0];
+                        const archivedTenantsTable = document.getElementById("archivedTenants").getElementsByTagName("tbody")[0];
+
+                        [...currentTenantsTable.rows].forEach(row => {
+                            if (row.cells[0].innerText === archivedTenant.name) {
+                                currentTenantsTable.deleteRow(row.rowIndex - 1);
+                            }
+                        });
+
+                        const row = archivedTenantsTable.insertRow();
+                        row.innerHTML = `
+                            <td>${archivedTenant.name}</td>
+                            <td>${archivedTenant.unit_color}</td>
+                            <td>${archivedTenant.start_date}</td>
+                            <td>${archivedTenant.end_date}</td>
+                            <td><button class="view-details" onclick="showDetails('${archivedTenant.date}', '${archivedTenant.name}', '${archivedTenant.birthday}', '${archivedTenant.birthplace}', '${archivedTenant.nationality}', '${archivedTenant.civil_status}', '${archivedTenant.previous_address}', '${archivedTenant.province}', '${archivedTenant.occupation}', '${archivedTenant.address_of_workplace}', '${archivedTenant.phone_number}', '${archivedTenant.email_address}', '${archivedTenant.emergency_contact_number}', '${archivedTenant.spouse_name}', '${archivedTenant.spouse_occupation}', '${archivedTenant.spouse_workplace_address}', '${archivedTenant.tenant_phone_number}', '${archivedTenant.number_of_tenants}', '${archivedTenant.unit_color}', '${archivedTenant.id}')">View Details</button></td>
+                        `;
+                    }
+                })
+                .catch(error => console.error('Error archiving tenant:', error));
+        }
+
+
+      document.getElementById("logoutBtn").onclick = function () {
+        window.location.href = "login.html";
+      };
+
+      window.onload = function () {
+        loadTenants();
+        loadOccupancy();
+      };
+    </script>
+  </body>
+</html>

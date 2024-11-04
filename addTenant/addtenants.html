@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="atstyles.css" />
+  </head>
+  <body>
+    <main id="main" class="main">
+      <div class="pagetitle">
+        <h1>Application Form</h1>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Personal Information of the Tenant</h5>
+
+          <div id="notification" class="notification">
+            Form submitted successfully!
+          </div>
+
+          <form id="tenantForm" class="row g-3" method="POST">
+            <div class="col-md-3">
+              <label for="Date" class="form-label"
+                >Date:<span style="color: red"> *</span></label
+              >
+              <input
+                type="date"
+                class="form-control"
+                id="inputDate"
+                name="date"
+                required
+              />
+            </div>
+            <div class="col-md-8">
+              <label for="inputName" class="form-label"
+                >Name:<span style="color: red"> *</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inputName"
+                name="name"
+                required
+                autocomplete="off"
+              />
+            </div>
+            <div class="col-md-3">
+              <label for="inputBirthday" class="form-label"
+                >Birthday:<span style="color: red"> *</span></label
+              >
+              <input
+                type="date"
+                class="form-control"
+                id="inputBirthday"
+                name="birthday"
+                required
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="inputBirthplace" class="form-label"
+                >Birthplace:<span style="color: red"> *</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inputBirthplace"
+                name="birthplace"
+                required
+              />
+            </div>
+            <div class="col-md-5">
+              <label for="inputNationality" class="form-label"
+                >Nationality:<span style="color: red"> *</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inputNationality"
+                name="nationality"
+                required
+              />
+            </div>
+            <div class="col-md-2">
+              <label for="inputCivilStatus" class="form-label"
+                >Civil Status:<span style="color: red"> *</span></label
+              >
+              <select
+                class="form-control"
+                id="inputCivilStatus"
+                name="civil_status"
+                required
+              >
+                <option value="" disabled selected>Select your status</option>
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Divorced">Divorced</option>
+                <option value="Widowed">Widowed</option>
+                <option value="Separated">Separated</option>
+                <option value="Domestic Partner">Domestic Partner</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label for="inputPreviousAddress" class="form-label"
+                >Previous Address:<span style="color: red"> *</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inputPreviousAddress"
+                name="previous_address"
+                required
+              />
+            </div>
+            <div class="col-md-2">
+              <label for="inputProvince" class="form-label"
+                >Province:<span style="color: red"> *</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inputProvince"
+                name="province"
+                required
+              />
+            </div>
+            <div class="col-md-2">
+              <label for="inputOccupation" class="form-label"
+                >Occupation:<span style="color: red"> *</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inputOccupation"
+                name="occupation"
+                required
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="inputWorkplaceAddress" class="form-label"
+                >Address of Workplace:<span style="color: red"> *</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inputWorkplaceAddress"
+                name="address_of_workplace"
+                required
+              />
+            </div>
+            <div class="col-md-2">
+              <label for="inputPhoneNumber" class="form-label"
+                >Phone Number:<span style="color: red"> *</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inputPhoneNumber"
+                name="phone_number"
+                required
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="inputEmail" class="form-label"
+                >Email Address:<span style="color: red"> *</span></label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="inputEmail"
+                name="email_address"
+                required
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="inputEmergencyContact" class="form-label"
+                >Emergency Contact Number:<span style="color: red">
+                  *</span
+                ></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inputEmergencyContact"
+                name="emergency_contact_number"
+                required
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="inputSpouseName" class="form-label"
+                >Spouse's Name:<span style="color: red"> *</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inputSpouseName"
+                name="spouse_name"
+                required
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="inputSpouseOccupation" class="form-label"
+                >Spouse's Occupation:<span style="color: red"> *</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inputSpouseOccupation"
+                name="spouse_occupation"
+                required
+              />
+            </div>
+            <div class="col-md-8">
+              <label for="inputSpouseWorkplace" class="form-label"
+                >Address of Workplace:<span style="color: red"> *</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inputSpouseWorkplace"
+                name="spouse_workplace_address"
+                required
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="inputSpousePhone" class="form-label"
+                >Phone Number:<span style="color: red"> *</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inputSpousePhone"
+                name="tenant_phone_number"
+                required
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="inputTenants" class="form-label"
+                >Number of Tenants:<span style="color: red"> *</span></label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="inputTenants"
+                name="number_of_tenants"
+                required
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="inputUnitColor" class="form-label"
+                >Unit Color:<span style="color: red"> *</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inputUnitColor"
+                name="unit_color"
+                required
+              />
+            </div>
+
+            <!-- Tenants Table -->
+            <table class="tenant-table">
+              <thead>
+                <tr>
+                  <th colspan="3">Included in the List of Tenants</th>
+                </tr>
+                <tr>
+                  <th>Name</th>
+                  <th>Age</th>
+                  <th>Relationship</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <input type="text" class="input-text" name="tenant1_name" />
+                  </td>
+                  <td>
+                    <input type="text" class="input-text" name="tenant1_age" />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      class="input-text"
+                      name="tenant1_relationship"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="text" class="input-text" name="tenant2_name" />
+                  </td>
+                  <td>
+                    <input type="text" class="input-text" name="tenant2_age" />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      class="input-text"
+                      name="tenant2_relationship"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="text" class="input-text" name="tenant3_name" />
+                  </td>
+                  <td>
+                    <input type="text" class="input-text" name="tenant3_age" />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      class="input-text"
+                      name="tenant3_relationship"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="text" class="input-text" name="tenant4_name" />
+                  </td>
+                  <td>
+                    <input type="text" class="input-text" name="tenant4_age" />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      class="input-text"
+                      name="tenant4_relationship"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="text" class="input-text" name="tenant5_name" />
+                  </td>
+                  <td>
+                    <input type="text" class="input-text" name="tenant5_age" />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      class="input-text"
+                      name="tenant5_relationship"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="col-12">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                id="submit-button"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+    <script>
+      const form = document.getElementById("tenantForm");
+      const notification = document.getElementById("notification");
+
+      // Handle form submission with JavaScript
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+
+        fetch("addTenant.php", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status === "success") {
+              // Show the success notification
+              notification.textContent = "Form submitted successfully!";
+              notification.style.backgroundColor = "#4CAF50"; // Green
+            } else {
+              notification.textContent =
+                "Error: " + (data.message || "Something went wrong!");
+              notification.style.backgroundColor = "#f44336"; // Red
+            }
+
+            notification.classList.add("show");
+
+            setTimeout(() => {
+              notification.classList.remove("show");
+            }, 3000);
+
+            if (data.status === "success") {
+              form.reset();
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            notification.textContent = "Error: Could not submit the form.";
+            notification.style.backgroundColor = "#f44336";
+            notification.classList.add("show");
+
+            setTimeout(() => {
+              notification.classList.remove("show");
+            }, 3000);
+          });
+      });
+    </script>
+  </body>
+</html>
