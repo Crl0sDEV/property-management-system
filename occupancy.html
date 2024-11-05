@@ -4,154 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Occupancy - MarJuan Apartments</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Sidebar styling */
-        .sidebar {
-            height: 100vh;
-            width: 250px;
-            background-color: #555;
-            padding-top: 20px;
-            position: fixed;
-            left: 0;
-            top: 0;
-        }
-
-        .sidebar a {
-            display: block;
-            padding: 15px 20px;
-            text-decoration: none;
-            font-size: 16px;
-            color: white;
-            background-color: #555;
-            border-radius: 8px;
-            margin: 10px;
-            text-align: center;
-        }
-
-        .sidebar a:hover {
-            background-color: #444;
-        }
-
-        .sidebar a.active {
-            background-color: #FFC63E;
-            color: black;
-        }
-
-        /* Main content styling */
-        .content {
-            margin-left: 270px;
-            padding: 20px;
-        }
-
-        h1 {
-            text-align: center;
-            margin: 20px;
-        }
-
-        table {
-            width: 90%;
-            margin: 20px auto;
-            border-collapse: collapse;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        table th, table td {
-            padding: 15px;
-            text-align: left;
-        }
-
-        table th {
-            background-color: #333;
-            color: white;
-            font-weight: bold;
-        }
-
-        table td {
-            background-color: white;
-            border-bottom: 1px solid #ccc;
-        }
-
-        .btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-right: 10px;
-        }
-
-        .btn-edit {
-            background-color: #28a745; /* Edit button - green */
-        }
-
-        .btn:hover {
-            opacity: 0.9;
-        }
-
-        /* Modal styling */
-        .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1; 
-            left: 0;
-            top: 0;
-            width: 100%; 
-            height: 100%; 
-            overflow: auto; 
-            background-color: rgb(0,0,0); 
-            background-color: rgba(0,0,0,0.4); 
-            padding-top: 60px; 
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto; 
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%; 
-            max-width: 600px;
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/occupancy.css">
 </head>
 <body>
     <div class="sidebar">
@@ -162,18 +15,16 @@
         <a href="room.html">ROOM</a>
         <a href="finance.html">FINANCE</a> 
         <a href="account.html">ACCOUNT</a>
-        <a href="#" id="logoutBtn">LOG OUT</a> <!-- Log Out Button -->
+        <a href="#" id="logoutBtn">LOG OUT</a>
     </div>
-
-
 
     <div class="content">
         <h1>Occupancy Information</h1>
         <table id="occupancyTable">
             <thead>
                 <tr>
-                    <th>Room Number</th>
-                    <th>Room Type</th>
+                    <th>Name</th>
+                    <th>Unit Color</th>
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
@@ -191,14 +42,6 @@
             <h2>Edit Room Details</h2>
             <form id="editForm">
                 <div class="form-group">
-                    <label for="roomNumber">Room Number</label>
-                    <input type="text" id="roomNumber" name="roomNumber" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="roomType">Room Type</label>
-                    <input type="text" id="roomType" name="roomType" required>
-                </div>
-                <div class="form-group">
                     <label for="roomStatus">Status</label>
                     <select id="roomStatus" name="roomStatus" required>
                         <option value="Occupied">Occupied</option>
@@ -211,66 +54,78 @@
     </div>
 
     <script>
-        const rooms = [
-            { number: '101', type: '2-Bedroom Apartment', occupied: true },
-            { number: '102', type: 'Studio Apartment', occupied: false },
-            { number: '103', type: '1-Bedroom Apartment', occupied: true },
-            { number: '104', type: '3-Bedroom Apartment', occupied: false }, 
-            { number: '105', type: '2-Bedroom Apartment', occupied: true },
-            { number: '106', type: 'Studio Apartment', occupied: false },
-            { number: '107', type: '1-Bedroom Apartment', occupied: true },
-            { number: '108', type: '3-Bedroom Apartment', occupied: false },
-            { number: '109', type: '2-Bedroom Apartment', occupied: true },
-            { number: '110', type: 'Studio Apartment', occupied: false },
-            { number: '111', type: '1-Bedroom Apartment', occupied: true },
-            { number: '112', type: '3-Bedroom Apartment', occupied: false }
-        ];
-
-        let currentRoom;
-
+        let tenants = []; 
+        let currentTenant;
+    
+        async function fetchOccupancyData() {
+            try {
+                const response = await fetch('occupancy.php');
+                tenants = await response.json();
+                loadOccupancy();
+            } catch (error) {
+                console.error("Error fetching occupancy data:", error);
+            }
+        }
+    
         function loadOccupancy() {
             const occupancyTable = document.getElementById('occupancyTable').getElementsByTagName('tbody')[0];
-            occupancyTable.innerHTML = ''; // Clear existing rows
-            rooms.forEach(room => {
+            occupancyTable.innerHTML = '';
+            tenants.forEach(tenant => {
                 const newRow = occupancyTable.insertRow();
                 newRow.innerHTML = `
-                    <td>${room.number}</td>
-                    <td>${room.type}</td>
-                    <td>${room.occupied ? 'Occupied' : 'Available'}</td>
+                    <td>${tenant.name}</td>
+                    <td>${tenant.unit_color}</td>
+                    <td>${tenant.status}</td>
                     <td>
-                        <button class="btn btn-edit" onclick="openEditModal('${room.number}')">Edit</button>
+                        <button class="btn btn-edit" onclick="openEditModal('${tenant.name}')">Edit</button>
                     </td>
                 `;
             });
         }
-
-        function openEditModal(roomNumber) {
-            currentRoom = rooms.find(room => room.number === roomNumber);
-            document.getElementById('roomNumber').value = currentRoom.number;
-            document.getElementById('roomType').value = currentRoom.type;
-            document.getElementById('roomStatus').value = currentRoom.occupied ? 'Occupied' : 'Available';
+    
+        function openEditModal(tenantName) {
+            currentTenant = tenants.find(tenant => tenant.name === tenantName);
+            document.getElementById('roomStatus').value = currentTenant.status;
             document.getElementById('editModal').style.display = 'block';
         }
-
+    
         document.getElementById('closeModal').onclick = function() {
             document.getElementById('editModal').style.display = 'none';
         }
-
-        document.getElementById('editForm').onsubmit = function(event) {
-            event.preventDefault();
-            currentRoom.type = document.getElementById('roomType').value;
-            currentRoom.occupied = document.getElementById('roomStatus').value === 'Occupied';
-            document.getElementById('editModal').style.display = 'none';
-            loadOccupancy(); // Refresh the occupancy table
-        } 
     
-          // Log Out Button Functionality
-          document.getElementById('logoutBtn').onclick = function() {
-            window.location.href = 'log in.html'; // Change this to your actual login page URL
-        } 
-
-        // Call the function to load occupancy data when the page loads
-        window.onload = loadOccupancy;
+        document.getElementById('editForm').onsubmit = async function(event) {
+            event.preventDefault();
+            
+            const updatedStatus = document.getElementById('roomStatus').value;
+            currentTenant.status = updatedStatus;
+            
+            try {
+                const response = await fetch('updateTenantStatus.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name: currentTenant.name, status: updatedStatus })
+                });
+                const result = await response.json();
+    
+                if (result.success) {
+                    loadOccupancy();
+                } else {
+                    console.error("Failed to update status:", result.message);
+                }
+            } catch (error) {
+                console.error("Error updating status:", error);
+            }
+    
+            document.getElementById('editModal').style.display = 'none';
+        }
+    
+        document.getElementById('logoutBtn').onclick = function() {
+            window.location.href = 'login.html';
+        }
+        window.onload = fetchOccupancyData;
     </script>
+    
 </body>
 </html>

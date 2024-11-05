@@ -1,32 +1,40 @@
 <?php
 include 'connection.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $tenantId = $_POST['id'];
+if (isset($_GET['id'])) {
+    $id = intval($_GET['id']);
 
-    if (!empty($tenantId)) {
-        $sql = "UPDATE tenant SET archived = 1 WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        
-        if ($stmt) {
-            $stmt->bind_param("i", $tenantId);
-            $stmt->execute();
+    // Begin a transaction
+    $conn->begin_transaction();
 
-            if ($stmt->affected_rows > 0) {
-                echo json_encode(["success" => true, "message" => "Tenant archived successfully."]);
-            } else {
-                echo json_encode(["success" => false, "message" => "Failed to archive tenant."]);
-            }
-            $stmt->close();
-        } else {
-            echo json_encode(["success" => false, "message" => "Database error: unable to prepare statement."]);
-        }
-    } else {
-        echo json_encode(["success" => false, "message" => "No tenant ID provided."]);
+    try {
+        // Insert tenant into `archived_tenants` table
+        $archiveQuery = "INSERT INTO archived_tenants (id, name, unit_color, start_date, end_date)
+                         SELECT id, name, unit_color, start_date, end_date FROM tenants WHERE id = ?";
+        $archiveStmt = $conn->prepare($archiveQuery);
+        $archiveStmt->bind_param("i", $id);
+        $archiveStmt->execute();
+
+        // Delete tenant from `tenants` table
+        $deleteQuery = "DELETE FROM tenants WHERE id = ?";
+        $deleteStmt = $conn->prepare($deleteQuery);
+        $deleteStmt->bind_param("i", $id);
+        $deleteStmt->execute();
+
+        // Commit transaction
+        $conn->commit();
+
+        echo json_encode(["success" => true]);
+    } catch (Exception $e) {
+        // Rollback transaction in case of error
+        $conn->rollback();
+        echo json_encode(["success" => false, "message" => $e->getMessage()]);
     }
-} else {
-    echo json_encode(["success" => false, "message" => "Invalid request method."]);
-}
 
-$conn->close();
+    $archiveStmt->close();
+    $deleteStmt->close();
+    $conn->close();
+} else {
+    echo json_encode(["success" => false, "message" => "Invalid tenant ID."]);
+}
 ?>

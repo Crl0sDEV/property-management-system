@@ -233,27 +233,46 @@
 
       function loadTenants() {
         fetch("tenant-info.php")
-          .then((response) => response.json())
-          .then((tenants) => {
-            const currentTenantsTable = document
-              .getElementById("currentTenants")
-              .getElementsByTagName("tbody")[0];
-            currentTenantsTable.innerHTML = "";
+  .then((response) => response.json())
+  .then((tenants) => {
+    const currentTenantsTable = document
+      .getElementById("currentTenants")
+      .getElementsByTagName("tbody")[0];
+    currentTenantsTable.innerHTML = "";
 
-            tenants.forEach((tenant) => {
-              const row = currentTenantsTable.insertRow();
-              row.innerHTML = `
-                  <td>${tenant.name}</td>
-                  <td>${tenant.unit_color}</td>
-                  <td>${tenant.start_date}</td>
-                  <td>${tenant.end_date}</td>
-                  <td><button class="view-details" onclick="showDetails('${tenant.date}', '${tenant.name}', '${tenant.birthday}', '${tenant.birthplace}', '${tenant.nationality}', '${tenant.civil_status}', '${tenant.previous_address}', '${tenant.province}', '${tenant.occupation}', '${tenant.address_of_workplace}', '${tenant.phone_number}', '${tenant.email_address}', '${tenant.emergency_contact_number}', '${tenant.spouse_name}', '${tenant.spouse_occupation}', '${tenant.spouse_workplace_address}', '${tenant.tenant_phone_number}', '${tenant.number_of_tenants}', '${tenant.unit_color}', '${tenant.id}')">View Details</button>
-                    <button class="archive-btn" onclick="archiveTenant(${tenant.id})">Archive</button>
-                    </td>
-                `;
-            });
-          })
-          .catch((error) => console.error("Error fetching tenants:", error));
+    tenants.currentTenants.forEach((tenant) => { 
+      const row = currentTenantsTable.insertRow();
+      row.setAttribute("data-tenant-id", tenant.id);
+      row.innerHTML = `
+          <td>${tenant.name}</td>
+          <td>${tenant.unit_color}</td>
+          <td>${tenant.start_date}</td>
+          <td>${tenant.end_date}</td>
+          <td><button class="view-details" onclick="showDetails('${tenant.date}', '${tenant.name}', '${tenant.birthday}', '${tenant.birthplace}', '${tenant.nationality}', '${tenant.civil_status}', '${tenant.previous_address}', '${tenant.province}', '${tenant.occupation}', '${tenant.address_of_workplace}', '${tenant.phone_number}', '${tenant.email_address}', '${tenant.emergency_contact_number}', '${tenant.spouse_name}', '${tenant.spouse_occupation}', '${tenant.spouse_workplace_address}', '${tenant.tenant_phone_number}', '${tenant.number_of_tenants}', '${tenant.unit_color}', '${tenant.id}', false)">View Details</button>
+            <button class="archive-btn" onclick="archiveTenant(${tenant.id})">Archive</button>
+            </td>
+        `;
+    });
+
+    const archivedTenantsTable = document
+      .getElementById("archivedTenants")
+      .getElementsByTagName("tbody")[0];
+    archivedTenantsTable.innerHTML = "";
+
+    tenants.archivedTenants.forEach((tenant) => { 
+      const row = archivedTenantsTable.insertRow();
+      row.innerHTML = `
+          <td>${tenant.name}</td>
+          <td>${tenant.unit_color}</td>
+          <td>${tenant.start_date}</td>
+          <td>${tenant.end_date}</td>
+          <td><button class="view-details" onclick="showDetails('${tenant.date}', '${tenant.name}', '${tenant.birthday}', '${tenant.birthplace}', '${tenant.nationality}', '${tenant.civil_status}', '${tenant.previous_address}', '${tenant.province}', '${tenant.occupation}', '${tenant.address_of_workplace}', '${tenant.phone_number}', '${tenant.email_address}', '${tenant.emergency_contact_number}', '${tenant.spouse_name}', '${tenant.spouse_occupation}', '${tenant.spouse_workplace_address}', '${tenant.tenant_phone_number}', '${tenant.number_of_tenants}', '${tenant.unit_color}', '${tenant.id}', true)">View Details</button>
+          </td>
+      `;
+    });
+
+  })
+  .catch((error) => console.error("Error fetching tenants:", error));
       }
 
       function showDetails(
@@ -276,7 +295,8 @@
         tenantphonenumber,
         numberoftenants,
         unitcolor,
-        id
+        id,
+        isArchived
       ) {
         document.getElementById("tenantDate").innerText = date;
         document.getElementById("tenantName").innerText = name;
@@ -306,6 +326,9 @@
         document.getElementById("tenantUnitcolor").innerText = unitcolor;
         selectedTenantId = id;
         document.getElementById("tenantModal").style.display = "block";
+
+        const editButton = document.querySelector(".edit");
+  editButton.style.display = isArchived ? "none" : "block";
       }
 
       function closeModal() {
@@ -412,32 +435,32 @@
 }
 
 function archiveTenant(id) {
-            fetch(`archive-tenant.php?id=${id}`, { method: 'POST' })
-                .then((response) => response.json())
-                .then((archivedTenant) => {
-                    if (archivedTenant) {
-                        const currentTenantsTable = document.getElementById("currentTenants").getElementsByTagName("tbody")[0];
-                        const archivedTenantsTable = document.getElementById("archivedTenants").getElementsByTagName("tbody")[0];
+  fetch(`tenant-info.php?archive_id=${id}`, {
+    method: "GET",
+  })
+  .then((response) => response.json())
+    .then((result) => {
+      if (result.success) {
+        loadTenants();
 
-                        [...currentTenantsTable.rows].forEach(row => {
-                            if (row.cells[0].innerText === archivedTenant.name) {
-                                currentTenantsTable.deleteRow(row.rowIndex - 1);
-                            }
-                        });
+        const archivedTenantsTable = document
+          .getElementById("archivedTenants")
+          .getElementsByTagName("tbody")[0];
 
-                        const row = archivedTenantsTable.insertRow();
-                        row.innerHTML = `
-                            <td>${archivedTenant.name}</td>
-                            <td>${archivedTenant.unit_color}</td>
-                            <td>${archivedTenant.start_date}</td>
-                            <td>${archivedTenant.end_date}</td>
-                            <td><button class="view-details" onclick="showDetails('${archivedTenant.date}', '${archivedTenant.name}', '${archivedTenant.birthday}', '${archivedTenant.birthplace}', '${archivedTenant.nationality}', '${archivedTenant.civil_status}', '${archivedTenant.previous_address}', '${archivedTenant.province}', '${archivedTenant.occupation}', '${archivedTenant.address_of_workplace}', '${archivedTenant.phone_number}', '${archivedTenant.email_address}', '${archivedTenant.emergency_contact_number}', '${archivedTenant.spouse_name}', '${archivedTenant.spouse_occupation}', '${archivedTenant.spouse_workplace_address}', '${archivedTenant.tenant_phone_number}', '${archivedTenant.number_of_tenants}', '${archivedTenant.unit_color}', '${archivedTenant.id}')">View Details</button></td>
-                        `;
-                    }
-                })
-                .catch(error => console.error('Error archiving tenant:', error));
-        }
-
+        const row = archivedTenantsTable.insertRow();
+        row.innerHTML = `
+          <td>${tenant.name}</td>
+          <td>${tenant.unit_color}</td>
+          <td>${tenant.date}</td>
+          <td>${tenant.birthday}</td>
+          <td><button class="view-details" onclick="showDetails('${tenant.date}', '${tenant.name}', '${tenant.birthday}', '${tenant.birthplace}', '${tenant.nationality}', '${tenant.civil_status}', '${tenant.previous_address}', '${tenant.province}', '${tenant.occupation}', '${tenant.address_of_workplace}', '${tenant.phone_number}', '${tenant.email_address}', '${tenant.emergency_contact_number}', '${tenant.spouse_name}', '${tenant.spouse_occupation}', '${tenant.spouse_workplace_address}', '${tenant.tenant_phone_number}', '${tenant.number_of_tenants}', '${tenant.unit_color}', '${tenant.id}')">View Details</button>
+          </td>`;
+      } else {
+        console.error("Failed to archive tenant:", tenants.error);
+      }
+    })
+    .catch((error) => console.error("Error archiving tenant:", error));
+}
 
       document.getElementById("logoutBtn").onclick = function () {
         window.location.href = "login.html";
@@ -445,7 +468,6 @@ function archiveTenant(id) {
 
       window.onload = function () {
         loadTenants();
-        loadOccupancy();
       };
     </script>
   </body>
