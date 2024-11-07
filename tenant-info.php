@@ -13,11 +13,9 @@ if ($conn->connect_error) {
     exit;
 }
 
-// Check if an archive request was made
 if (isset($_GET['archive_id'])) {
     $archive_id = $_GET['archive_id'];
 
-    // Fetch the tenant data to archive
     $getTenantSQL = "SELECT * FROM tenant WHERE id = ?";
     $stmt = $conn->prepare($getTenantSQL);
     $stmt->bind_param("i", $archive_id);
@@ -27,7 +25,6 @@ if (isset($_GET['archive_id'])) {
     if ($tenantResult->num_rows > 0) {
         $tenantData = $tenantResult->fetch_assoc();
 
-        // Insert data into archived_tenant table
         $insertArchiveSQL = "INSERT INTO archived_tenant (name, date, birthday, birthplace, nationality, civil_status, previous_address, province, occupation, address_of_workplace, phone_number, email_address, emergency_contact_number, spouse_name, spouse_occupation, spouse_workplace_address, tenant_phone_number, number_of_tenants, unit_color, id)
                              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($insertArchiveSQL);
@@ -56,7 +53,6 @@ if (isset($_GET['archive_id'])) {
         );
 
         if ($stmt->execute()) {
-            // Delete the tenant from the main tenant table
             $deleteSQL = "DELETE FROM tenant WHERE id = ?";
             $stmt = $conn->prepare($deleteSQL);
             $stmt->bind_param("i", $archive_id);
@@ -75,7 +71,6 @@ if (isset($_GET['archive_id'])) {
     exit;
 }
 
-// Fetch current tenants
 $currentTenants = [];
 $currentQuery = "SELECT * FROM tenant";
 $currentResult = $conn->query($currentQuery);
@@ -85,7 +80,6 @@ if ($currentResult && $currentResult->num_rows > 0) {
     }
 }
 
-// Fetch archived tenants
 $archivedTenants = [];
 $archivedQuery = "SELECT * FROM archived_tenant";
 $archivedResult = $conn->query($archivedQuery);
@@ -95,7 +89,6 @@ if ($archivedResult && $archivedResult->num_rows > 0) {
     }
 }
 
-// Return JSON response
 echo json_encode(['currentTenants' => $currentTenants, 'archivedTenants' => $archivedTenants]);
 
 $conn->close();

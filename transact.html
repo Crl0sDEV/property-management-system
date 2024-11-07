@@ -15,9 +15,8 @@
         <a href="room.html">ROOM</a>
         <a href="finance.html">FINANCE</a> 
         <a href="account.html">ACCOUNT</a>
-        <a href="#" id="logoutBtn">LOG OUT</a> <!-- Log Out Button -->
+        <a href="#" id="logoutBtn">LOG OUT</a>
     </div>
-
 
     <div class="content">
         <h1>Transaction Overview</h1>
@@ -31,113 +30,168 @@
                 </tr>
             </thead>
             <tbody id="tenant-table-body">
-                <!-- Tenant rows will be populated dynamically here -->
             </tbody>            
         </table>
     </div>
 
-    <!-- Modal for Payment History -->
     <div id="paymentModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closePaymentModal()">&times;</span>
-            <h2>Payment History for <span id="tenant-name"></span></h2>
-            <div class="payment-history">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Amount</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="payment-history-body">
-                        <!-- Payment history will be populated here -->
-                    </tbody>
-                </table>
-            </div>
+            <h2>Edit Payment</h2>
+            <label for="newAmount">Amount:</label>
+            <input type="number" id="newAmount" name="newAmount" required>
+            
+            <label for="statusSelect">Status:</label>
+            <select id="statusSelect">
+                <option value="Paid">Paid</option>
+                <option value="Due">Due</option>
+            </select>
+
+            <button onclick="updateAmount()">Update</button>
         </div>
     </div>
 
-    <!-- Modal for Sending Message -->
-    <div id="messageModal" class="modal message-modal">
-        <div class="message-modal-content">
-            <span class="close" onclick="closeMessageModal()">&times;</span>
-            <h2>Send Message to <span id="tenant-name-message"></span></h2>
-            <div class="form-group">
-                <label for="message">Message:</label>
-                <textarea id="message" rows="5"></textarea>
-            </div>
-            <button class="btn" onclick="sendMessage()">Send</button>
+    <div id="historyModal" class="history-modal">
+        <div class="history-modal-content">
+            <span class="close" onclick="closeHistoryModal()">&times;</span>
+            <h2>Payment History for <span id="history-tenant-name"></span></h2>
+            <table id="history-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="history-table-body">
+                </tbody>
+            </table>
         </div>
     </div>
 
     <script>
-        // Get modal elements
-        var paymentModal = document.getElementById("paymentModal");
-        var tenantNameSpan = document.getElementById("tenant-name");
-        var paymentHistoryBody = document.getElementById("payment-history-body");
+        let currentTenantId = '';
+        let currentStatus = '';
+    
+        document.addEventListener("DOMContentLoaded", function() {
+            const tenantTableBody = document.getElementById('tenant-table-body');
         
-        var messageModal = document.getElementById("messageModal");
-        var tenantNameMessageSpan = document.getElementById("tenant-name-message");
-        var messageInput = document.getElementById("message");
-
-        // Function to view payment history
-        function viewPaymentHistory(tenantName) {
-            tenantNameSpan.textContent = tenantName;
-
-            // Example of populating payment history based on tenant
-            paymentHistoryBody.innerHTML = `
-                <tr><td>2024-01-01</td><td>$200</td><td>Paid</td></tr>
-                <tr><td>2024-02-01</td><td>$300</td><td>Paid</td></tr>
-                <tr><td>2024-03-01</td><td>$300</td><td>Due</td></tr>
-            `;
-
-            // Show the payment history modal
-            paymentModal.style.display = "block";
+            fetch('transact.php')
+                .then(response => response.json())
+                .then(data => {
+                    tenantTableBody.innerHTML = ''; 
+        
+                    data.forEach(tenant => {
+                        const statusClass = tenant.status === 'Paid' ? 'status-paid' : 'status-due';
+                        
+                        const row = document.createElement('tr');
+                        row.innerHTML = ` 
+                            <td>${tenant.name}</td>
+                            <td>₱${tenant.amount}</td>
+                            <td>
+                                <span class="${statusClass}" id="status-${tenant.id}">${tenant.status}</span>
+                            </td>
+                            <td>
+                                <button class="action-btn" onclick="openEditAmountModal(${tenant.id}, ${tenant.amount}, '${tenant.status}')">Edit</button>
+                                <button class="action-btn" onclick="viewPaymentHistory(${tenant.id}, '${tenant.name}')">View Details</button>
+                            </td>
+                        `;
+                        tenantTableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error fetching tenant data:', error));
+        });
+    
+        function openEditAmountModal(tenantId, currentAmount, tenantStatus) {
+            currentTenantId = tenantId;
+            currentStatus = tenantStatus;
+        
+            document.getElementById('newAmount').value = currentAmount;
+            document.getElementById('statusSelect').value = tenantStatus;
+        
+            document.getElementById('paymentModal').style.display = 'block';
         }
-
-        // Close the payment history modal
-        function closePaymentModal() {
-            paymentModal.style.display = "none";
-        }
-
-        // Function to open message modal
-        function openMessageModal(tenantName) {
-            tenantNameMessageSpan.textContent = tenantName;
-            messageInput.value = ''; // Clear the message input field
-            messageModal.style.display = "block";
-        }
-
-        // Close the message modal
-        function closeMessageModal() {
-            messageModal.style.display = "none";
-        }
-
-        // Function to send message
-        function sendMessage() {
-            var message = messageInput.value;
-            if (message) {
-                alert("Message sent to " + tenantNameMessageSpan.textContent + ": " + message);
-                closeMessageModal(); // Close the modal after sending
+    
+        function updateAmount() {
+            const newAmount = document.getElementById('newAmount').value;
+            const selectedStatus = document.getElementById('statusSelect').value;
+    
+            if (newAmount && currentTenantId) {
+                const formData = new FormData();
+                formData.append('tenant_id', currentTenantId);
+                formData.append('new_amount', newAmount);
+                formData.append('new_status', selectedStatus);
+    
+                fetch('update-payment-amount.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const currentDate = new Date().toLocaleString();
+    
+                        let paymentHistory = JSON.parse(localStorage.getItem('paymentHistory')) || {};
+                        if (!paymentHistory[currentTenantId]) {
+                            paymentHistory[currentTenantId] = [];
+                        }
+    
+                        paymentHistory[currentTenantId].push({
+                            date: currentDate,
+                            amount: newAmount,
+                            status: selectedStatus
+                        });
+    
+                        localStorage.setItem('paymentHistory', JSON.stringify(paymentHistory));
+    
+                        const statusSpan = document.getElementById(`status-${currentTenantId}`);
+                        statusSpan.textContent = selectedStatus;
+                        statusSpan.className = selectedStatus === 'Paid' ? 'status-paid' : 'status-due';
+    
+                        alert('Payment amount and status updated successfully!');
+                        closePaymentModal();
+                        location.reload();
+                    } else {
+                        alert('Failed to update payment details.');
+                    }
+                })
+                .catch(error => console.error('Error updating payment:', error));
             } else {
-                alert("Please enter a message before sending.");
+                alert('Please enter a valid amount.');
             }
         }
-
-        // Close modal when clicking outside of it
-        window.onclick = function(event) {
-            if (event.target == paymentModal) {
-                closePaymentModal();
+    
+        function closePaymentModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+    
+        function viewPaymentHistory(tenantId, tenantName) {
+            const paymentHistory = JSON.parse(localStorage.getItem('paymentHistory')) || {};
+            const tenantHistory = paymentHistory[tenantId] || [];
+            const historyTableBody = document.getElementById('history-table-body');
+            historyTableBody.innerHTML = '';
+            document.getElementById('history-tenant-name').textContent = tenantName;
+    
+            if (tenantHistory.length === 0) {
+                historyTableBody.innerHTML = '<tr><td colspan="3">No history available</td></tr>';
+            } else {
+                tenantHistory.forEach(entry => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${entry.date}</td>
+                        <td>₱${entry.amount}</td>
+                        <td>${entry.status}</td>
+                    `;
+                    historyTableBody.appendChild(row);
+                });
             }
-            if (event.target == messageModal) {
-                closeMessageModal();
-            }
-        } 
-        // Log Out Button Functionality
-        document.getElementById('logoutBtn').onclick = function() {
-            window.location.href = 'log in.html'; // Change this to your actual login page URL
-        } 
-
+    
+            document.getElementById('historyModal').style.display = 'block';
+        }
+    
+        function closeHistoryModal() {
+            document.getElementById('historyModal').style.display = 'none';
+        }
     </script>
 </body>
 </html>
