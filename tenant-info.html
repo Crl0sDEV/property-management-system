@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tenant Information - MarJuan Apartments</title>
     <link rel="stylesheet" href="css/tenant-info.css" />
+    <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+/>
+
   </head>
   <body>
     <div class="sidebar">
@@ -21,6 +26,12 @@
     <div class="content">
         <div class="add-tenant-btn">
             <button onclick="window.location.href='addtenants.html'"> +Add Tenant</button>
+          </div>
+
+          <div class="archived-btn-container">
+            <button onclick="openArchivedModal()">
+              <i class="fas fa-archive"></i> Archived
+            </button>
           </div>
           
       <h1>Tenant Information</h1>
@@ -39,23 +50,28 @@
           <!-- Tenant rows go here -->
         </tbody>
       </table>
-
-      <h2>Archived Tenants</h2>
-      <table id="archivedTenants">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Unit Color</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Archived tenants will be appended here -->
-        </tbody>
-      </table>
     </div>
+
+    <div id="archivedModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeArchivedModal()">&times;</span>
+          <h2>Archived Tenants</h2>
+          <table id="archivedTenants">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Unit Color</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Archived tenants will be appended here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
 
     <div id="tenantModal" class="modal">
       <div class="modal-content">
@@ -229,6 +245,42 @@
     </div>
 
     <script>
+        // Load tenants and populate tables
+        function loadTenants() {
+          // Fetch tenants and populate current and archived tenants tables
+        }
+    
+        // Function to open the Archived Tenants modal
+        function openArchivedModal() {
+          document.getElementById("archivedModal").style.display = "block";
+        }
+    
+        // Function to close the Archived Tenants modal
+        function closeArchivedModal() {
+          document.getElementById("archivedModal").style.display = "none";
+        }
+    
+        // Function to show tenant details in the tenantModal (existing)
+        function showDetails(/* parameters */) {
+          // Populate tenant details
+          document.getElementById("tenantModal").style.display = "block";
+        }
+    
+        // Close modals if user clicks outside them
+        window.onclick = function(event) {
+          const archivedModal = document.getElementById("archivedModal");
+          const tenantModal = document.getElementById("tenantModal");
+    
+          if (event.target == archivedModal) {
+            archivedModal.style.display = "none";
+          }
+          if (event.target == tenantModal) {
+            tenantModal.style.display = "none";
+          }
+        };
+      </script>
+
+    <script>
       let selectedTenantId; 
 
       function loadTenants() {
@@ -248,8 +300,8 @@
           <td>${tenant.unit_color}</td>
           <td>${tenant.start_date}</td>
           <td>${tenant.end_date}</td>
-          <td><button class="view-details" onclick="showDetails('${tenant.date}', '${tenant.name}', '${tenant.birthday}', '${tenant.birthplace}', '${tenant.nationality}', '${tenant.civil_status}', '${tenant.previous_address}', '${tenant.province}', '${tenant.occupation}', '${tenant.address_of_workplace}', '${tenant.phone_number}', '${tenant.email_address}', '${tenant.emergency_contact_number}', '${tenant.spouse_name}', '${tenant.spouse_occupation}', '${tenant.spouse_workplace_address}', '${tenant.tenant_phone_number}', '${tenant.number_of_tenants}', '${tenant.unit_color}', '${tenant.id}', false)">View Details</button>
-            <button class="archive-btn" onclick="archiveTenant(${tenant.id})">Archive</button>
+          <td><button class="view-details" onclick="showDetails('${tenant.date}', '${tenant.name}', '${tenant.birthday}', '${tenant.birthplace}', '${tenant.nationality}', '${tenant.civil_status}', '${tenant.previous_address}', '${tenant.province}', '${tenant.occupation}', '${tenant.address_of_workplace}', '${tenant.phone_number}', '${tenant.email_address}', '${tenant.emergency_contact_number}', '${tenant.spouse_name}', '${tenant.spouse_occupation}', '${tenant.spouse_workplace_address}', '${tenant.tenant_phone_number}', '${tenant.number_of_tenants}', '${tenant.unit_color}', '${tenant.id}', false)"><i class="fas fa-info-circle"></i> View Details</button>
+            <button class="archive-btn" onclick="archiveTenant(${tenant.id})"><i class="fas fa-archive"></i></button>
             </td>
         `;
     });
@@ -266,7 +318,7 @@
           <td>${tenant.unit_color}</td>
           <td>${tenant.start_date}</td>
           <td>${tenant.end_date}</td>
-          <td><button class="view-details" onclick="showDetails('${tenant.date}', '${tenant.name}', '${tenant.birthday}', '${tenant.birthplace}', '${tenant.nationality}', '${tenant.civil_status}', '${tenant.previous_address}', '${tenant.province}', '${tenant.occupation}', '${tenant.address_of_workplace}', '${tenant.phone_number}', '${tenant.email_address}', '${tenant.emergency_contact_number}', '${tenant.spouse_name}', '${tenant.spouse_occupation}', '${tenant.spouse_workplace_address}', '${tenant.tenant_phone_number}', '${tenant.number_of_tenants}', '${tenant.unit_color}', '${tenant.id}', true)">View Details</button>
+          <td><button class="view-details" onclick="showDetails('${tenant.date}', '${tenant.name}', '${tenant.birthday}', '${tenant.birthplace}', '${tenant.nationality}', '${tenant.civil_status}', '${tenant.previous_address}', '${tenant.province}', '${tenant.occupation}', '${tenant.address_of_workplace}', '${tenant.phone_number}', '${tenant.email_address}', '${tenant.emergency_contact_number}', '${tenant.spouse_name}', '${tenant.spouse_occupation}', '${tenant.spouse_workplace_address}', '${tenant.tenant_phone_number}', '${tenant.number_of_tenants}', '${tenant.unit_color}', '${tenant.id}', true)"><i class="fas fa-info-circle"></i> Details</button>
           </td>
       `;
     });
@@ -453,7 +505,7 @@ function archiveTenant(id) {
           <td>${tenant.unit_color}</td>
           <td>${tenant.date}</td>
           <td>${tenant.birthday}</td>
-          <td><button class="view-details" onclick="showDetails('${tenant.date}', '${tenant.name}', '${tenant.birthday}', '${tenant.birthplace}', '${tenant.nationality}', '${tenant.civil_status}', '${tenant.previous_address}', '${tenant.province}', '${tenant.occupation}', '${tenant.address_of_workplace}', '${tenant.phone_number}', '${tenant.email_address}', '${tenant.emergency_contact_number}', '${tenant.spouse_name}', '${tenant.spouse_occupation}', '${tenant.spouse_workplace_address}', '${tenant.tenant_phone_number}', '${tenant.number_of_tenants}', '${tenant.unit_color}', '${tenant.id}')">View Details</button>
+          <td><button class="view-details" onclick="showDetails('${tenant.date}', '${tenant.name}', '${tenant.birthday}', '${tenant.birthplace}', '${tenant.nationality}', '${tenant.civil_status}', '${tenant.previous_address}', '${tenant.province}', '${tenant.occupation}', '${tenant.address_of_workplace}', '${tenant.phone_number}', '${tenant.email_address}', '${tenant.emergency_contact_number}', '${tenant.spouse_name}', '${tenant.spouse_occupation}', '${tenant.spouse_workplace_address}', '${tenant.tenant_phone_number}', '${tenant.number_of_tenants}', '${tenant.unit_color}', '${tenant.id}')"> View Details</button>
           </td>`;
       } else {
         console.error("Failed to archive tenant:", tenants.error);

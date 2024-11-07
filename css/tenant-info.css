@@ -186,6 +186,7 @@ button {
     position: absolute;
     top: 20px;
     right: 20px;
+    z-index: 1;
   }
   
   .add-tenant-btn button {
@@ -201,4 +202,26 @@ button {
   .add-tenant-btn button:hover {
     background-color: #0056b3;
   }
-  
+
+  .archived-btn-container {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+  }
+  .archived-btn-container button {
+    padding: 10px;
+    background-color: lightgray;
+    color: black;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .archived-btn-container button:hover {
+    background-color: darkgray;
+  }
+
+  .archived-btn-container button i {
+    margin-right: 5px;
+  }
