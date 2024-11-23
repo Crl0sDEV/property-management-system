@@ -26,7 +26,7 @@ body {
     background-color: #555;
     border-radius: 8px;
     margin: 10px;
-    text-align: center;
+    text-align: left;
 }
 
 .sidebar a:hover {
@@ -35,7 +35,7 @@ body {
 
 .sidebar a.active {
     background-color: #FFC63E;
-    color: black;
+    color: white;
 }
 
 /* Main content styling */

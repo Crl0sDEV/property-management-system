@@ -5,19 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finance - MarJuan Apartments</title>
     <link rel="stylesheet" href="css/finance.css">
+    <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+/>
 </head>
 <body>
     <div class="sidebar">
-        <a href="dashboard.html">DASHBOARD</a>
-        <a href="tenant-info.html">TENANTS</a>
-        <a href="occupancy.html">OCCUPANCY</a>
-        <a href="transact.html">TRANSACTION</a>
-        <a href="room.html">ROOM</a>
-        <a href="finance.html" class="active">FINANCE</a> 
-        <a href="account.html">ACCOUNT</a>
-        <a href="#" id="logoutBtn">LOG OUT</a> <!-- Log Out Button -->
+        <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> DASHBOARD</a>
+        <a href="tenant-info.html"><i class="fas fa-users"></i> TENANTS</a>
+        <a href="occupancy.html"><i class="fas fa-home"></i> OCCUPANCY</a>
+        <a href="transact.html"><i class="fas fa-money-check-alt"></i> TRANSACTION</a>
+        <a href="room.html"><i class="fas fa-door-open"></i> ROOM</a>
+        <a href="finance.html" class="active"><i class="fas fa-wallet"></i> FINANCE</a> 
+        <a href="account.html"><i class="fas fa-user-circle"></i> ACCOUNT</a> 
+        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> LOG OUT</a>
     </div>
-
 
     <div class="content">
         <h1>Finance Management</h1>
@@ -34,40 +37,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>101</td>
-                            <td>₱500</td>
-                        </tr>
-                        <tr>
-                            <td>Jane Smith</td>
-                            <td>102</td>
-                            <td>₱600</td>
-                        </tr>
-                        <tr>
-                            <td>Emily Johnson</td>
-                            <td>103</td>
-                            <td>₱550</td>
-                        </tr>
-                        <tr>
-                            <td>Michael Brown</td>
-                            <td>104</td>
-                            <td>₱450</td>
-                        </tr>
-                        <tr>
-                            <td>Linda Davis</td>
-                            <td>105</td>
-                            <td>₱500</td>
-                        </tr>
-                        <tr>
-                            <td>James Wilson</td>
-                            <td>106</td>
-                            <td>₱400</td>
-                        </tr>
+                        <!-- Monthly income data will be loaded here dynamically -->
                     </tbody>
                 </table>
                 <div class="total">
-                    <strong>Total Monthly Income: ₱3000</strong> <!-- Replace with dynamic value -->
+                    <strong id="totalMonthlyIncome">Total Monthly Income: ₱0</strong>
                 </div>
                 <button class="btn" onclick="printIncomeReport()">Print Monthly Income Report</button>
             </div>
@@ -83,42 +57,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Paint</td>
-                            <td>₱30</td>
-                            <td>2</td>
-                            <td>₱60</td>
-                        </tr>
-                        <tr>
-                            <td>Cleaning Supplies</td>
-                            <td>₱15</td>
-                            <td>4</td>
-                            <td>₱60</td>
-                        </tr>
-                        <tr>
-                            <td>Light Bulbs</td>
-                            <td>₱5</td>
-                            <td>10</td>
-                            <td>₱50</td>
-                        </tr>
-                        <tr>
-                            <td>Repair Materials</td>
-                            <td>₱25</td>
-                            <td>3</td>
-                            <td>₱75</td>
-                        </tr>
-                        <tr>
-                            <td>Miscellaneous</td>
-                            <td>₱10</td>
-                            <td>5</td>
-                            <td>₱50</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Total Maintenance Cost</strong></td>
-                            <td colspan="3"><strong>₱295</strong></td>
-                        </tr>
+                        <!-- Maintenance details will be loaded here dynamically -->
                     </tbody>
                 </table>
+                <div class="total">
+                    <strong id="totalMaintenanceCost">Total Maintenance Cost: ₱0</strong>
+                </div>
                 <button class="btn" onclick="printMaintenanceReport()">Print Maintenance Report</button>
             </div>
         </div>
@@ -135,80 +79,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>John Doe</td>
-                    <td>101</td>
-                    <td>₱100</td>
-                    <td>Window</td>
-                    <td>2024-10-01</td>
-                </tr>
-                <tr>
-                    <td>Jane Smith</td>
-                    <td>102</td>
-                    <td>₱0</td>
-                    <td>N/A</td>
-                    <td>2024-10-01</td>
-                </tr>
-                <tr>
-                    <td>Emily Johnson</td>
-                    <td>103</td>
-                    <td>₱150</td>
-                    <td>Door</td>
-                    <td>2024-10-02</td>
-                </tr>
-                <tr>
-                    <td>Michael Brown</td>
-                    <td>104</td>
-                    <td>₱200</td>
-                    <td>Wall</td>
-                    <td>2024-10-03</td>
-                </tr>
-                <tr>
-                    <td>Linda Davis</td>
-                    <td>105</td>
-                    <td>₱0</td>
-                    <td>N/A</td>
-                    <td>2024-10-03</td>
-                </tr>
-                <tr>
-                    <td>James Wilson</td>
-                    <td>106</td>
-                    <td>₱50</td>
-                    <td>Ceiling Fan</td>
-                    <td>2024-10-04</td>
-                </tr>
+                <!-- Charge history data will be loaded here dynamically -->
             </tbody>
         </table>
     </div>
 
-    <script>
-        function printIncomeReport() {
-            // Function to print monthly income report
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write('<html><head><title>Monthly Income Report</title></head><body>');
-            printWindow.document.write('<h1>Monthly Income Report</h1>');
-            printWindow.document.write(document.getElementById('monthlyIncomeTable').outerHTML);
-            printWindow.document.write('<p><strong>Total Monthly Income: $3000</strong></p>'); // Update as needed
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.print();
-        }
-
-        function printMaintenanceReport() {
-            // Function to print monthly maintenance report
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write('<html><head><title>Monthly Maintenance Report</title></head><body>');
-            printWindow.document.write('<h1>Monthly Maintenance Report</h1>');
-            printWindow.document.write(document.getElementById('maintenanceDetailsTable').outerHTML);
-            printWindow.document.write('<p><strong>Total Maintenance Cost: $295</strong></p>'); // Update as needed
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.print();
-        } 
-          // Log Out Button Functionality
-          document.getElementById('logoutBtn').onclick = function() {
-            window.location.href = 'log in.html'; // Change this to your actual login page URL
-        } 
-    </script>
+    <script src="js/finance.js"></script>
 </body>
 </html>

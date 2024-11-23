@@ -26,7 +26,7 @@ body {
     background-color: #555;
     border-radius: 8px;
     margin: 10px;
-    text-align: center;
+    text-align: left;
 }
 
 .sidebar a:hover {
@@ -35,7 +35,7 @@ body {
 
 .sidebar a.active {
     background-color: #FFC63E;
-    color: black;
+    color: white;
 }
 
 /* Main content styling */
@@ -142,4 +142,86 @@ table td {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* Center the modal */
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px; /* Set width of the modal */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    text-align: center;
+}
+
+.modal-content .close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #aaa;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-content .close:hover,
+.modal-content .close:focus {
+    color: #333;
+}
+
+.modal-content h2 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    font-size: 14px;
+    color: #555;
+}
+
+.form-group input[type="number"],
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.modal-content .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.button-group .left {
+    background-color: #4CAF50; /* Adjust color if needed */
+    color: white;
+    margin-right: auto; /* Pushes the button to the left */
+}
+
+.button-group .right {
+    background-color: #f44336; /* Adjust color if needed */
+    color: white;
+    margin-left: auto; /* Pushes the button to the right */
 }

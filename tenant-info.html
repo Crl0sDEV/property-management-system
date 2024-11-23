@@ -6,34 +6,35 @@
     <title>Tenant Information - MarJuan Apartments</title>
     <link rel="stylesheet" href="css/tenant-info.css" />
     <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-/>
-
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
   </head>
   <body>
     <div class="sidebar">
-      <a href="dashboard.html">DASHBOARD</a>
-      <a href="tenant-info.html" class="active">TENANTS</a>
-      <a href="occupancy.html">OCCUPANCY</a>
-      <a href="transact.html">TRANSACTION</a>
-      <a href="room.html">ROOM</a>
-      <a href="finance.html">FINANCE</a>
-      <a href="account.html">ACCOUNT</a>
-      <a href="#" id="logoutBtn">LOG OUT</a>
-    </div>
+      <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> DASHBOARD</a>
+      <a href="tenant-info.html" class="active"><i class="fas fa-users"></i> TENANTS</a>
+      <a href="occupancy.html"><i class="fas fa-home"></i> OCCUPANCY</a>
+      <a href="transact.html"><i class="fas fa-money-check-alt"></i> TRANSACTION</a>
+      <a href="room.html"><i class="fas fa-door-open"></i> ROOM</a>
+      <a href="finance.html"><i class="fas fa-wallet"></i> FINANCE</a> 
+      <a href="account.html"><i class="fas fa-user-circle"></i> ACCOUNT</a> 
+      <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> LOG OUT</a>
+  </div>
 
     <div class="content">
-        <div class="add-tenant-btn">
-            <button onclick="window.location.href='addtenants.html'"> +Add Tenant</button>
-          </div>
+      <div class="add-tenant-btn">
+        <button onclick="window.location.href='addtenants.html'">
+          <i class="fa-solid fa-plus"></i> Add Tenant
+        </button>
+      </div>
 
-          <div class="archived-btn-container">
-            <button onclick="openArchivedModal()">
-              <i class="fas fa-archive"></i> Archived
-            </button>
-          </div>
-          
+      <div class="archived-btn-container">
+        <button onclick="openArchivedModal()">
+          <i class="fas fa-archive"></i> Archive
+        </button>
+      </div>
+
       <h1>Tenant Information</h1>
       <h2>Current Tenants</h2>
       <table id="currentTenants">
@@ -53,25 +54,25 @@
     </div>
 
     <div id="archivedModal" class="modal">
-        <div class="modal-content">
-          <span class="close" onclick="closeArchivedModal()">&times;</span>
-          <h2>Archived Tenants</h2>
-          <table id="archivedTenants">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Unit Color</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Archived tenants will be appended here -->
-            </tbody>
-          </table>
-        </div>
+      <div class="modal-content">
+        <span class="close" onclick="closeArchivedModal()">&times;</span>
+        <h2>Archived Tenants</h2>
+        <table id="archivedTenants">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Unit Color</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Archived tenants will be appended here -->
+          </tbody>
+        </table>
       </div>
+    </div>
 
     <div id="tenantModal" class="modal">
       <div class="modal-content">
@@ -145,12 +146,30 @@
                 document.getElementById('tenantSpouseoccupation').innerText,
                 document.getElementById('tenantSpouseworkplaceaddress').innerText,
                 document.getElementById('tenantTenantphonenumber').innerText,
-                document.getElementById('tenantNumberoftenants').innerText,
-                document.getElementById('tenantUnitcolor').innerText
+                document.getElementById('tenantNumberoftenants').innerText
             )"
         >
+          <i class="fa-solid fa-pen-to-square"></i>
           Edit
         </button>
+      </div>
+    </div>
+
+    <div id="editDatesModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeEditDatesModal()">&times;</span>
+        <h2>Edit Dates</h2>
+        <form id="editDatesForm" onsubmit="return updateDates(event)">
+          <div class="form-group">
+            <label for="editStartDate">Start Date:</label>
+            <input type="date" id="editStartDate" required />
+          </div>
+          <div class="form-group">
+            <label for="editEndDate">End Date:</label>
+            <input type="date" id="editEndDate" required />
+          </div>
+          <button type="submit" class="btn">Save</button>
+        </form>
       </div>
     </div>
 
@@ -235,292 +254,11 @@
             <label for="editNumberoftenants">Number of Tenants:</label>
             <input type="number" id="editNumberoftenants" />
           </div>
-          <div class="form-group">
-            <label for="editUnitcolor">Unit Color:</label>
-            <input type="text" id="editUnitcolor" />
-          </div>
           <button type="submit" class="btn">Update</button>
         </form>
       </div>
     </div>
 
-    <script>
-        // Load tenants and populate tables
-        function loadTenants() {
-          // Fetch tenants and populate current and archived tenants tables
-        }
-    
-        // Function to open the Archived Tenants modal
-        function openArchivedModal() {
-          document.getElementById("archivedModal").style.display = "block";
-        }
-    
-        // Function to close the Archived Tenants modal
-        function closeArchivedModal() {
-          document.getElementById("archivedModal").style.display = "none";
-        }
-    
-        // Function to show tenant details in the tenantModal (existing)
-        function showDetails(/* parameters */) {
-          // Populate tenant details
-          document.getElementById("tenantModal").style.display = "block";
-        }
-    
-        // Close modals if user clicks outside them
-        window.onclick = function(event) {
-          const archivedModal = document.getElementById("archivedModal");
-          const tenantModal = document.getElementById("tenantModal");
-    
-          if (event.target == archivedModal) {
-            archivedModal.style.display = "none";
-          }
-          if (event.target == tenantModal) {
-            tenantModal.style.display = "none";
-          }
-        };
-      </script>
-
-    <script>
-      let selectedTenantId; 
-
-      function loadTenants() {
-        fetch("tenant-info.php")
-  .then((response) => response.json())
-  .then((tenants) => {
-    const currentTenantsTable = document
-      .getElementById("currentTenants")
-      .getElementsByTagName("tbody")[0];
-    currentTenantsTable.innerHTML = "";
-
-    tenants.currentTenants.forEach((tenant) => { 
-      const row = currentTenantsTable.insertRow();
-      row.setAttribute("data-tenant-id", tenant.id);
-      row.innerHTML = `
-          <td>${tenant.name}</td>
-          <td>${tenant.unit_color}</td>
-          <td>${tenant.start_date}</td>
-          <td>${tenant.end_date}</td>
-          <td><button class="view-details" onclick="showDetails('${tenant.date}', '${tenant.name}', '${tenant.birthday}', '${tenant.birthplace}', '${tenant.nationality}', '${tenant.civil_status}', '${tenant.previous_address}', '${tenant.province}', '${tenant.occupation}', '${tenant.address_of_workplace}', '${tenant.phone_number}', '${tenant.email_address}', '${tenant.emergency_contact_number}', '${tenant.spouse_name}', '${tenant.spouse_occupation}', '${tenant.spouse_workplace_address}', '${tenant.tenant_phone_number}', '${tenant.number_of_tenants}', '${tenant.unit_color}', '${tenant.id}', false)"><i class="fas fa-info-circle"></i> View Details</button>
-            <button class="archive-btn" onclick="archiveTenant(${tenant.id})"><i class="fas fa-archive"></i></button>
-            </td>
-        `;
-    });
-
-    const archivedTenantsTable = document
-      .getElementById("archivedTenants")
-      .getElementsByTagName("tbody")[0];
-    archivedTenantsTable.innerHTML = "";
-
-    tenants.archivedTenants.forEach((tenant) => { 
-      const row = archivedTenantsTable.insertRow();
-      row.innerHTML = `
-          <td>${tenant.name}</td>
-          <td>${tenant.unit_color}</td>
-          <td>${tenant.start_date}</td>
-          <td>${tenant.end_date}</td>
-          <td><button class="view-details" onclick="showDetails('${tenant.date}', '${tenant.name}', '${tenant.birthday}', '${tenant.birthplace}', '${tenant.nationality}', '${tenant.civil_status}', '${tenant.previous_address}', '${tenant.province}', '${tenant.occupation}', '${tenant.address_of_workplace}', '${tenant.phone_number}', '${tenant.email_address}', '${tenant.emergency_contact_number}', '${tenant.spouse_name}', '${tenant.spouse_occupation}', '${tenant.spouse_workplace_address}', '${tenant.tenant_phone_number}', '${tenant.number_of_tenants}', '${tenant.unit_color}', '${tenant.id}', true)"><i class="fas fa-info-circle"></i> Details</button>
-          </td>
-      `;
-    });
-
-  })
-  .catch((error) => console.error("Error fetching tenants:", error));
-      }
-
-      function showDetails(
-        date,
-        name,
-        birthday,
-        birthplace,
-        nationality,
-        civilstatus,
-        previousaddress,
-        province,
-        occupation,
-        addressofworkplace,
-        phonenumber,
-        emailaddress,
-        emergencycontactnumber,
-        spousename,
-        spouseoccupation,
-        spouseworkplaceaddress,
-        tenantphonenumber,
-        numberoftenants,
-        unitcolor,
-        id,
-        isArchived
-      ) {
-        document.getElementById("tenantDate").innerText = date;
-        document.getElementById("tenantName").innerText = name;
-        document.getElementById("tenantBirthday").innerText = birthday;
-        document.getElementById("tenantBirthplace").innerText = birthplace;
-        document.getElementById("tenantNationality").innerText = nationality;
-        document.getElementById("tenantCivilstatus").innerText = civilstatus;
-        document.getElementById("tenantPreviousaddress").innerText =
-          previousaddress;
-        document.getElementById("tenantProvince").innerText = province;
-        document.getElementById("tenantOccupation").innerText = occupation;
-        document.getElementById("tenantAddressofworkplace").innerText =
-          addressofworkplace;
-        document.getElementById("tenantPhonenumber").innerText = phonenumber;
-        document.getElementById("tenantEmailaddress").innerText = emailaddress;
-        document.getElementById("tenantEmergencycontactnumber").innerText =
-          emergencycontactnumber;
-        document.getElementById("tenantSpousename").innerText = spousename;
-        document.getElementById("tenantSpouseoccupation").innerText =
-          spouseoccupation;
-        document.getElementById("tenantSpouseworkplaceaddress").innerText =
-          spouseworkplaceaddress;
-        document.getElementById("tenantTenantphonenumber").innerText =
-          tenantphonenumber;
-        document.getElementById("tenantNumberoftenants").innerText =
-          numberoftenants;
-        document.getElementById("tenantUnitcolor").innerText = unitcolor;
-        selectedTenantId = id;
-        document.getElementById("tenantModal").style.display = "block";
-
-        const editButton = document.querySelector(".edit");
-  editButton.style.display = isArchived ? "none" : "block";
-      }
-
-      function closeModal() {
-        document.getElementById("tenantModal").style.display = "none";
-      }
-
-      function showEdit(
-        date,
-        name,
-        birthday,
-        birthplace,
-        nationality,
-        civilstatus,
-        previousaddress,
-        province,
-        occupation,
-        addressofworkplace,
-        phonenumber,
-        emailaddress,
-        emergencycontactnumber,
-        spousename,
-        spouseoccupation,
-        spouseworkplaceaddress,
-        tenantphonenumber,
-        numberoftenants,
-        unitcolor
-      ) {
-        document.getElementById("editDate").value = date;
-        document.getElementById("editName").value = name;
-        document.getElementById("editBirthday").value = birthday;
-        document.getElementById("editBirthplace").value = birthplace;
-        document.getElementById("editNationality").value = nationality;
-        document.getElementById("editCivilstatus").value = civilstatus;
-        document.getElementById("editPreviousaddress").value = previousaddress;
-        document.getElementById("editProvince").value = province;
-        document.getElementById("editOccupation").value = occupation;
-        document.getElementById("editAddressofworkplace").value =
-          addressofworkplace;
-        document.getElementById("editPhonenumber").value = phonenumber;
-        document.getElementById("editEmailaddress").value = emailaddress;
-        document.getElementById("editEmergencycontactnumber").value =
-          emergencycontactnumber;
-        document.getElementById("editSpousename").value = spousename;
-        document.getElementById("editSpouseoccupation").value =
-          spouseoccupation;
-        document.getElementById("editSpouseworkplaceaddress").value =
-          spouseworkplaceaddress;
-        document.getElementById("editTenantphonenumber").value =
-          tenantphonenumber;
-        document.getElementById("editNumberoftenants").value = numberoftenants;
-        document.getElementById("editUnitcolor").value = unitcolor;
-        document.getElementById("editModal").style.display = "block";
-      }
-
-      function closeEditModal() {
-        document.getElementById("editModal").style.display = "none";
-      }
-
-      function updateTenant(event) {
-    event.preventDefault();
-    
-    const data = {
-        id: selectedTenantId,
-        date: document.getElementById("editDate").value,
-        name: document.getElementById("editName").value,
-        birthday: document.getElementById("editBirthday").value,
-        birthplace: document.getElementById("editBirthplace").value,
-        nationality: document.getElementById("editNationality").value,
-        civil_status: document.getElementById("editCivilstatus").value,
-        previous_address: document.getElementById("editPreviousaddress").value,
-        province: document.getElementById("editProvince").value,
-        occupation: document.getElementById("editOccupation").value,
-        address_of_workplace: document.getElementById("editAddressofworkplace").value,
-        phone_number: document.getElementById("editPhonenumber").value,
-        email_address: document.getElementById("editEmailaddress").value,
-        emergency_contact_number: document.getElementById("editEmergencycontactnumber").value,
-        spouse_name: document.getElementById("editSpousename").value,
-        spouse_occupation: document.getElementById("editSpouseoccupation").value,
-        spouse_workplace_address: document.getElementById("editSpouseworkplaceaddress").value,
-        tenant_phone_number: document.getElementById("editTenantphonenumber").value,
-        number_of_tenants: document.getElementById("editNumberoftenants").value,
-        unit_color: document.getElementById("editUnitcolor").value
-    };
-    
-    fetch("update-tenant.php", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(responseData => {
-        if (responseData.success) {
-            alert("Tenant information updated successfully!");
-            loadTenants();
-        } else {
-            console.error("Error updating tenant:", responseData.error);
-        }
-    })
-    .catch(error => console.error("Error updating tenant:", error));
-
-    closeEditModal();
-}
-
-function archiveTenant(id) {
-  fetch(`tenant-info.php?archive_id=${id}`, {
-    method: "GET",
-  })
-  .then((response) => response.json())
-    .then((result) => {
-      if (result.success) {
-        loadTenants();
-
-        const archivedTenantsTable = document
-          .getElementById("archivedTenants")
-          .getElementsByTagName("tbody")[0];
-
-        const row = archivedTenantsTable.insertRow();
-        row.innerHTML = `
-          <td>${tenant.name}</td>
-          <td>${tenant.unit_color}</td>
-          <td>${tenant.date}</td>
-          <td>${tenant.birthday}</td>
-          <td><button class="view-details" onclick="showDetails('${tenant.date}', '${tenant.name}', '${tenant.birthday}', '${tenant.birthplace}', '${tenant.nationality}', '${tenant.civil_status}', '${tenant.previous_address}', '${tenant.province}', '${tenant.occupation}', '${tenant.address_of_workplace}', '${tenant.phone_number}', '${tenant.email_address}', '${tenant.emergency_contact_number}', '${tenant.spouse_name}', '${tenant.spouse_occupation}', '${tenant.spouse_workplace_address}', '${tenant.tenant_phone_number}', '${tenant.number_of_tenants}', '${tenant.unit_color}', '${tenant.id}')"> View Details</button>
-          </td>`;
-      } else {
-        console.error("Failed to archive tenant:", tenants.error);
-      }
-    })
-    .catch((error) => console.error("Error archiving tenant:", error));
-}
-
-      document.getElementById("logoutBtn").onclick = function () {
-        window.location.href = "login.html";
-      };
-
-      window.onload = function () {
-        loadTenants();
-      };
-    </script>
+    <script src="js/tenant-info.js"></script>
   </body>
 </html>

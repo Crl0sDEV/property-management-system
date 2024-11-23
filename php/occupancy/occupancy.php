@@ -1,7 +1,6 @@
 <?php
-include 'connection.php';
-
 header('Content-Type: application/json');
+include ('connection.php');
 
 $query = "SELECT name, unit_color, status FROM tenant";
 $result = mysqli_query($conn, $query);

@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Occupancy - MarJuan Apartments</title>
     <link rel="stylesheet" href="css/occupancy.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 <body>
     <div class="sidebar">
-        <a href="dashboard.html">DASHBOARD</a>
-        <a href="tenant-info.html">TENANTS</a>
-        <a href="occupancy.html" class="active">OCCUPANCY</a>
-        <a href="transact.html">TRANSACTION</a>
-        <a href="room.html">ROOM</a>
-        <a href="finance.html">FINANCE</a> 
-        <a href="account.html">ACCOUNT</a>
-        <a href="#" id="logoutBtn">LOG OUT</a>
+        <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> DASHBOARD</a>
+        <a href="tenant-info.html"><i class="fas fa-users"></i> TENANTS</a>
+        <a href="occupancy.html" class="active"><i class="fas fa-home"></i> OCCUPANCY</a>
+        <a href="transact.html"><i class="fas fa-money-check-alt"></i> TRANSACTION</a>
+        <a href="room.html"><i class="fas fa-door-open"></i> ROOM</a>
+        <a href="finance.html"><i class="fas fa-wallet"></i> FINANCE</a> 
+        <a href="account.html"><i class="fas fa-user-circle"></i> ACCOUNT</a> 
+        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> LOG OUT</a>
     </div>
 
     <div class="content">
@@ -26,7 +27,6 @@
                     <th>Name</th>
                     <th>Unit Color</th>
                     <th>Status</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,79 +53,6 @@
         </div>
     </div>
 
-    <script>
-        let tenants = []; 
-        let currentTenant;
-    
-        async function fetchOccupancyData() {
-            try {
-                const response = await fetch('occupancy.php');
-                tenants = await response.json();
-                loadOccupancy();
-            } catch (error) {
-                console.error("Error fetching occupancy data:", error);
-            }
-        }
-    
-        function loadOccupancy() {
-            const occupancyTable = document.getElementById('occupancyTable').getElementsByTagName('tbody')[0];
-            occupancyTable.innerHTML = '';
-            tenants.forEach(tenant => {
-                const newRow = occupancyTable.insertRow();
-                newRow.innerHTML = `
-                    <td>${tenant.name}</td>
-                    <td>${tenant.unit_color}</td>
-                    <td>${tenant.status}</td>
-                    <td>
-                        <button class="btn btn-edit" onclick="openEditModal('${tenant.name}')">Edit</button>
-                    </td>
-                `;
-            });
-        }
-    
-        function openEditModal(tenantName) {
-            currentTenant = tenants.find(tenant => tenant.name === tenantName);
-            document.getElementById('roomStatus').value = currentTenant.status;
-            document.getElementById('editModal').style.display = 'block';
-        }
-    
-        document.getElementById('closeModal').onclick = function() {
-            document.getElementById('editModal').style.display = 'none';
-        }
-    
-        document.getElementById('editForm').onsubmit = async function(event) {
-            event.preventDefault();
-            
-            const updatedStatus = document.getElementById('roomStatus').value;
-            currentTenant.status = updatedStatus;
-            
-            try {
-                const response = await fetch('updateTenantStatus.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ name: currentTenant.name, status: updatedStatus })
-                });
-                const result = await response.json();
-    
-                if (result.success) {
-                    loadOccupancy();
-                } else {
-                    console.error("Failed to update status:", result.message);
-                }
-            } catch (error) {
-                console.error("Error updating status:", error);
-            }
-    
-            document.getElementById('editModal').style.display = 'none';
-        }
-    
-        document.getElementById('logoutBtn').onclick = function() {
-            window.location.href = 'login.html';
-        }
-        window.onload = fetchOccupancyData;
-    </script>
-    
+    <script src="js/occupancy.js"></script>
 </body>
 </html>

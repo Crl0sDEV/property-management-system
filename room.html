@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Room Management - MarJuan Apartments</title>
     <link rel="stylesheet" href="css/room.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 <body>
     <div class="sidebar">
-        <a href="dashboard.html">DASHBOARD</a>
-        <a href="tenant-info.html">TENANTS</a>
-        <a href="occupancy.html">OCCUPANCY</a>
-        <a href="transact.html">TRANSACTION</a>
-        <a href="room.html" class="active">ROOM</a>
-        <a href="finance.html">FINANCE</a> 
-        <a href="account.html">ACCOUNT</a>
-        <a href="#" id="logoutBtn">LOG OUT</a>
+        <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> DASHBOARD</a>
+        <a href="tenant-info.html"><i class="fas fa-users"></i> TENANTS</a>
+        <a href="occupancy.html"><i class="fas fa-home"></i> OCCUPANCY</a>
+        <a href="transact.html"><i class="fas fa-money-check-alt"></i> TRANSACTION</a>
+        <a href="room.html" class="active"><i class="fas fa-door-open"></i> ROOM</a>
+        <a href="finance.html"><i class="fas fa-wallet"></i> FINANCE</a> 
+        <a href="account.html"><i class="fas fa-user-circle"></i> ACCOUNT</a> 
+        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> LOG OUT</a>
     </div>
 
     <div class="content">
@@ -39,112 +40,33 @@
     <!-- Modal for Charging Tenants -->
     <div id="chargeModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeChargeModal()">&times;</span>
+            <span class="close" onclick="confirmCloseModal()">&times;</span>
             <h2>Charge Tenant</h2>
             <p id="charge-details"></p>
             <div class="form-group">
                 <label for="charge-amount">Charge Amount:</label>
-                <input type="number" id="charge-amount" />
+                <input type="number" id="charge-amount" required/>
             </div>
             <div class="form-group">
                 <label for="damage-description">Damage Description:</label>
-                <input type="text" id="damage-description" />
+                <input type="text" id="damage-description" required/>
             </div>
-            <button class="btn" onclick="applyCharge()">Apply charge to Tenant</button>
-            <button class="btn" onclick="">Apply charge to Admin</button>
+            <div class="button-group">
+                <button class="btn left" onclick="applyCharge()">Apply charge to Tenant</button>
+                <button class="btn right" onclick="applyChargeToAdmin()">Apply charge to Admin</button>
+            </div>
         </div>
     </div>
 
-    <script>
-        let currentRow;
+    <!-- Confirmation Modal to discard changes -->
+    <div id="confirmCloseModal" class="modal">
+        <div class="modal-content">
+            <p>Charge will be discarded. Are you sure you want to exit?</p>
+            <button onclick="confirmCloseModal()">Yes</button>
+            <button onclick="closeConfirmationModal()">No</button>
+        </div>
+    </div>
 
-        async function fetchRoomData() {
-            try {
-                const response = await fetch('room.php');
-                const rooms = await response.json();
-                loadRoomData(rooms);
-            } catch (error) {
-                console.error("Error fetching room data:", error);
-            }
-        }
-
-        function loadRoomData(rooms) {
-            const roomTable = document.getElementById('roomTable').getElementsByTagName('tbody')[0];
-            roomTable.innerHTML = '';
-
-            rooms.forEach(room => {
-                const newRow = roomTable.insertRow();
-                newRow.innerHTML = `
-                    <td>${room.name}</td>
-                    <td>${room.unit_color}</td>
-                    <td>${room.damage_description}</td>
-                    <td class="charge-amount">₱${room.charge_amount}</td>
-                    <td>
-                        <button class="btn btn-charge" onclick="openChargeModal('${room.name}', '${room.unit_color}', ${room.charge_amount}, this)">Charge</button>
-                    </td>
-                `;
-            });
-        }
-
-        function openChargeModal(name, unitColor, currentCharge, btnElement) {
-            document.getElementById('charge-details').textContent = `Tenant: ${name}, Unit Color: ${unitColor}`;
-            document.getElementById('charge-amount').value = currentCharge;
-            currentRow = btnElement.closest("tr");
-            document.getElementById('chargeModal').style.display = "block";
-        }
-
-        function closeChargeModal() {
-            document.getElementById('chargeModal').style.display = "none";
-        }
-
-        async function applyCharge() {
-    const chargeAmount = document.getElementById('charge-amount').value;
-    const damageDescription = document.getElementById('damage-description').value;
-    const tenantDetails = document.getElementById('charge-details').textContent;
-    const [name, unitColor] = tenantDetails.replace("Tenant: ", "").split(", Unit Color: ");
-
-    if (chargeAmount >= 0) {
-        currentRow.querySelector(".charge-amount").textContent = `₱${chargeAmount}`;
-        currentRow.cells[2].textContent = damageDescription;
-
-        try {
-            const response = await fetch('saveCharge.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    name: name.trim(),
-                    unit_color: unitColor.trim(),
-                    damage_description: damageDescription,
-                    charge_amount: chargeAmount
-                })
-            });
-            const result = await response.json();
-            if (result.status === "success") {
-                alert(result.message);
-                closeChargeModal();
-            } else {
-                alert(result.message);
-            }
-        } catch (error) {
-            console.error("Error saving charge:", error);
-            alert("An error occurred while saving the charge.");
-        }
-    } else {
-        alert("Please enter a valid charge amount.");
-    }
-}
-
-        window.onclick = function(event) {
-            if (event.target === document.getElementById("chargeModal")) {
-                closeChargeModal();
-            }
-        }
-
-        document.getElementById('logoutBtn').onclick = function() {
-            window.location.href = 'login.html';
-        }
-
-        window.onload = fetchRoomData;
-    </script>
+    <script src="js/room.js"></script>
 </body>
 </html>

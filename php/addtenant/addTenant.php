@@ -1,7 +1,6 @@
 <?php
-include('connection.php');
-
 header('Content-Type: application/json');
+include('connection.php');
 
 $date = $_POST['date'];
 $name = $_POST['name'];

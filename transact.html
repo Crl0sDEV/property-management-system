@@ -5,17 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transaction - MarJuan Apartments</title>
     <link rel="stylesheet" href="css/transact.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
 </head>
 <body>
     <div class="sidebar">
-        <a href="dashboard.html">DASHBOARD</a>
-        <a href="tenant-info.html">TENANTS</a>
-        <a href="occupancy.html">OCCUPANCY</a>
-        <a href="transact.html" class="active">TRANSACTION</a>
-        <a href="room.html">ROOM</a>
-        <a href="finance.html">FINANCE</a> 
-        <a href="account.html">ACCOUNT</a>
-        <a href="#" id="logoutBtn">LOG OUT</a>
+        <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> DASHBOARD</a>
+        <a href="tenant-info.html"><i class="fas fa-users"></i> TENANTS</a>
+        <a href="occupancy.html"><i class="fas fa-home"></i> OCCUPANCY</a>
+        <a href="transact.html" class="active"><i class="fas fa-money-check-alt"></i> TRANSACTION</a>
+        <a href="room.html"><i class="fas fa-door-open"></i> ROOM</a>
+        <a href="finance.html"><i class="fas fa-wallet"></i> FINANCE</a> 
+        <a href="account.html"><i class="fas fa-user-circle"></i> ACCOUNT</a> 
+        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> LOG OUT</a>
     </div>
 
     <div class="content">
@@ -47,7 +51,7 @@
                 <option value="Due">Due</option>
             </select>
 
-            <button onclick="updateAmount()">Update</button>
+            <button class="action-btn update" onclick="updateAmount()">Update</button>
         </div>
     </div>
 
@@ -69,132 +73,6 @@
         </div>
     </div>
 
-    <script>
-        let currentTenantId = '';
-        let currentStatus = '';
-    
-        document.addEventListener("DOMContentLoaded", function() {
-            const tenantTableBody = document.getElementById('tenant-table-body');
-        
-            fetch('transact.php')
-                .then(response => response.json())
-                .then(data => {
-                    tenantTableBody.innerHTML = ''; 
-        
-                    data.forEach(tenant => {
-                        const statusClass = tenant.status === 'Paid' ? 'status-paid' : 'status-due';
-                        
-                        const row = document.createElement('tr');
-                        row.innerHTML = ` 
-                            <td>${tenant.name}</td>
-                            <td>₱${tenant.amount}</td>
-                            <td>
-                                <span class="${statusClass}" id="status-${tenant.id}">${tenant.status}</span>
-                            </td>
-                            <td>
-                                <button class="action-btn" onclick="openEditAmountModal(${tenant.id}, ${tenant.amount}, '${tenant.status}')">Edit</button>
-                                <button class="action-btn" onclick="viewPaymentHistory(${tenant.id}, '${tenant.name}')">View Details</button>
-                            </td>
-                        `;
-                        tenantTableBody.appendChild(row);
-                    });
-                })
-                .catch(error => console.error('Error fetching tenant data:', error));
-        });
-    
-        function openEditAmountModal(tenantId, currentAmount, tenantStatus) {
-            currentTenantId = tenantId;
-            currentStatus = tenantStatus;
-        
-            document.getElementById('newAmount').value = currentAmount;
-            document.getElementById('statusSelect').value = tenantStatus;
-        
-            document.getElementById('paymentModal').style.display = 'block';
-        }
-    
-        function updateAmount() {
-            const newAmount = document.getElementById('newAmount').value;
-            const selectedStatus = document.getElementById('statusSelect').value;
-    
-            if (newAmount && currentTenantId) {
-                const formData = new FormData();
-                formData.append('tenant_id', currentTenantId);
-                formData.append('new_amount', newAmount);
-                formData.append('new_status', selectedStatus);
-    
-                fetch('update-payment-amount.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        const currentDate = new Date().toLocaleString();
-    
-                        let paymentHistory = JSON.parse(localStorage.getItem('paymentHistory')) || {};
-                        if (!paymentHistory[currentTenantId]) {
-                            paymentHistory[currentTenantId] = [];
-                        }
-    
-                        paymentHistory[currentTenantId].push({
-                            date: currentDate,
-                            amount: newAmount,
-                            status: selectedStatus
-                        });
-    
-                        localStorage.setItem('paymentHistory', JSON.stringify(paymentHistory));
-    
-                        const statusSpan = document.getElementById(`status-${currentTenantId}`);
-                        statusSpan.textContent = selectedStatus;
-                        statusSpan.className = selectedStatus === 'Paid' ? 'status-paid' : 'status-due';
-    
-                        alert('Payment amount and status updated successfully!');
-                        closePaymentModal();
-                        location.reload();
-                    } else {
-                        alert('Failed to update payment details.');
-                    }
-                })
-                .catch(error => console.error('Error updating payment:', error));
-            } else {
-                alert('Please enter a valid amount.');
-            }
-        }
-    
-        function closePaymentModal() {
-            document.getElementById('paymentModal').style.display = 'none';
-        }
-    
-        function viewPaymentHistory(tenantId, tenantName) {
-    const historyTableBody = document.getElementById('history-table-body');
-    historyTableBody.innerHTML = '';
-    document.getElementById('history-tenant-name').textContent = tenantName;
-
-    fetch(`fetch-payment-history.php?tenant_id=${tenantId}`)
-        .then(response => response.json())
-        .then(historyData => {
-            if (historyData.length === 0) {
-                historyTableBody.innerHTML = '<tr><td colspan="3">No history available</td></tr>';
-            } else {
-                historyData.forEach(entry => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${entry.payment_date}</td>
-                        <td>₱${entry.amount}</td>
-                        <td>${entry.status}</td>
-                    `;
-                    historyTableBody.appendChild(row);
-                });
-            }
-
-            document.getElementById('historyModal').style.display = 'block';
-        })
-        .catch(error => console.error('Error fetching payment history:', error));
-}
-    
-        function closeHistoryModal() {
-            document.getElementById('historyModal').style.display = 'none';
-        }
-    </script>
+    <script src="js/transact.js"></script>
 </body>
 </html>
