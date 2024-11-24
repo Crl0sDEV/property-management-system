@@ -44,3 +44,19 @@ const form = document.getElementById("tenantForm");
             }, 3000);
           });
       });
+
+      document.addEventListener('DOMContentLoaded', () => {
+        fetch('php/addtenant/getUsedColors.php') // Replace with the correct path to your PHP file
+            .then(response => response.json())
+            .then(usedColors => {
+                usedColors.forEach(color => {
+                    const colorInput = document.querySelector(`input[value="${color}"]`);
+                    if (colorInput) {
+                        colorInput.disabled = true;
+                        colorInput.parentElement.style.opacity = 0.5; // Optional: visually indicate unavailability
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching used colors:', error));
+    });
+    

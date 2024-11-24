@@ -1,6 +1,6 @@
 <?php
-include 'connection.php';
-
+header("Content-Type: application/json");
+include ('connection.php');
 $data = json_decode(file_get_contents("php://input"), true);
 
 $id = $data['id'];
@@ -22,7 +22,6 @@ $spouse_occupation = $data['spouse_occupation'];
 $spouse_workplace_address = $data['spouse_workplace_address'];
 $tenant_phone_number = $data['tenant_phone_number'];
 $number_of_tenants = $data['number_of_tenants'];
-$unit_color = $data['unit_color'];
 
 $sql = "UPDATE tenant SET 
             date = '$date',
@@ -42,8 +41,7 @@ $sql = "UPDATE tenant SET
             spouse_occupation = '$spouse_occupation',
             spouse_workplace_address = '$spouse_workplace_address',
             tenant_phone_number = '$tenant_phone_number',
-            number_of_tenants = '$number_of_tenants',
-            unit_color = '$unit_color'
+            number_of_tenants = '$number_of_tenants'
             WHERE id = '$id'";
 
 if (mysqli_query($conn, $sql)) {

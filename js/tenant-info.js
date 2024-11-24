@@ -217,7 +217,6 @@ function loadTenants() {}
             .value,
           number_of_tenants: document.getElementById("editNumberoftenants")
             .value,
-          unit_color: document.getElementById("editUnitcolor").value,
         };
 
         fetch("php/tenant-info/update-tenant.php", {
