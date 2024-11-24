@@ -89,6 +89,42 @@ function loadMonthlyIncomeData(incomeData) {
             printWindow.print();
         }
 
+        document.addEventListener("DOMContentLoaded", () => {
+            loadMaintenanceDetails();
+        });
+        
+        function loadMaintenanceDetails() {
+            fetch("php/finance/fetchMaintenanceDetails.php")
+                .then((response) => response.json())
+                .then((data) => {
+                    const tableBody = document.querySelector("#maintenanceDetailsTable tbody");
+                    let totalCost = 0;
+        
+                    tableBody.innerHTML = ""; // Clear existing rows
+        
+                    data.forEach((entry) => {
+                        const row = document.createElement("tr");
+        
+                        row.innerHTML = `
+                            <td>${entry.tenant_name || ""}</td>
+                            <td>${entry.unit_color || ""}</td>
+                            <td>${entry.damage_description || ""}</td>
+                            <td>₱${parseFloat(entry.charge_amount).toFixed(2)}</td>
+                        `;
+        
+                        tableBody.appendChild(row);
+        
+                        totalCost += parseFloat(entry.charge_amount);
+                    });
+        
+                    // Update total cost
+                    document.getElementById("totalMaintenanceCost").textContent = `Total Maintenance Cost: ₱${totalCost.toFixed(2)}`;
+                })
+                .catch((error) => {
+                    console.error("Error fetching maintenance details:", error);
+                });
+        }        
+
         document.getElementById('logoutBtn').onclick = function() {
             window.location.href = 'login.html';
         }

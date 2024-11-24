@@ -8,16 +8,19 @@ let currentTenantId = '';
                 .then(response => response.json())
                 .then(data => {
                     tenantTableBody.innerHTML = ''; 
-        
+                    
                     data.forEach(tenant => {
-                        const statusClass = tenant.status === 'Paid' ? 'status-paid' : 'status-due';
-                        
+                        // Check if the tenant status is set
+                        const statusClass = tenant.status === 'Paid' 
+                            ? 'status-paid' 
+                            : (tenant.status === 'Due' ? 'status-due' : 'status-pending');  // Default to 'status-pending' if status is not set
+            
                         const row = document.createElement('tr');
                         row.innerHTML = ` 
                             <td>${tenant.name}</td>
                             <td>₱${tenant.amount}</td>
                             <td>
-                                <span class="${statusClass}" id="status-${tenant.id}">${tenant.status}</span>
+                                <span class="${statusClass}" id="status-${tenant.id}">${tenant.status || ''}</span>
                             </td>
                             <td>
                                 <button class="action-btn edit" onclick="openEditAmountModal(${tenant.id}, ${tenant.amount}, '${tenant.status}')"><i class="fa-solid fa-pen-to-square"></i> Edit</button>

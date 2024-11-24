@@ -129,7 +129,7 @@ let currentRow;
 
             if (chargeAmount >= 0) {
                 try {
-                    const response = await fetch('php/rooom/saveAdminCharge.php', {
+                    const response = await fetch('php/room/saveAdminCharge.php', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
