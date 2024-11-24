@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/login.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
     <title>LOG IN / SIGN UP</title>
     <style>
         .left-section {
@@ -54,6 +58,19 @@
             animation: spin 1s linear infinite;
             margin-right: 5px;
         }
+
+        .password-container {
+            position: relative;
+        }
+
+        .toggle-password {
+            color: gray;
+            position: absolute;
+            top: 70%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -77,9 +94,10 @@
                         <label for="username">Username</label>
                         <input type="text" id="username" name="username" placeholder="Enter your username" required autocomplete="off" />
                     </div>
-                    <div class="input-group">
+                    <div class="input-group password-container">
                         <label for="password">Password</label>
                         <input type="password" id="password" name="password" placeholder="Enter your password" required autocomplete="off" />
+                        <i class="fa fa-eye toggle-password" id="toggle-password" onclick="togglePasswordVisibility()"></i>
                     </div>
                     
                     <button type="submit" class="submit-button">Login</button>
@@ -96,13 +114,15 @@
                         <label for="new-username">Username</label>
                         <input type="text" id="new-username" name="username" placeholder="Choose a username" required autocomplete="off"/>
                     </div>
-                    <div class="input-group">
+                    <div class="input-group password-container">
                         <label for="new-password">Password</label>
                         <input type="password" id="new-password" name="password" placeholder="Choose a password" required autocomplete="off"/>
+                        <i class="fa fa-eye toggle-password" id="toggle-new-password" onclick="togglePasswordVisibility('new-password')"></i>
                     </div>
-                    <div class="input-group">
+                    <div class="input-group password-container">
                         <label for="confirm-password">Confirm Password</label>
                         <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required autocomplete="off"/>
+                        <i class="fa fa-eye toggle-password" id="toggle-confirm-password" onclick="togglePasswordVisibility('confirm-password')"></i>
                     </div>
                     <button type="submit" class="submit-button">Sign Up</button>
                 </form>
@@ -121,6 +141,49 @@
     // Toggle between login and signup forms if elements exist
     const showSignup = document.getElementById("show-signup");
     const showLogin = document.getElementById("show-login");
+    
+    if (showSignup) {
+        showSignup.addEventListener("click", function (event) {
+            event.preventDefault();
+            document.getElementById("login-form").style.display = "none";
+            document.getElementById("signup-form").style.display = "block";
+        });
+    }
+    
+    if (showLogin) {
+        showLogin.addEventListener("click", function (event) {
+            event.preventDefault();
+            document.getElementById("signup-form").style.display = "none";
+            document.getElementById("login-form").style.display = "block";
+        });
+    }
+    
+    // Show notification function
+    function showNotification(message, type) {
+        const notification = document.getElementById("notification");
+        notification.textContent = message;
+        notification.classList.add(type);
+        notification.style.display = "block";
+        setTimeout(() => {
+            notification.style.display = "none";
+            notification.classList.remove(type);
+        }, 3000);
+    }
+
+    // Password visibility toggle function
+    function togglePasswordVisibility(passwordId = 'password') {
+        const passwordField = document.getElementById(passwordId);
+        const icon = document.querySelector(`#toggle-${passwordId}`);
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            passwordField.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    }
     
     // Check if the forgot password link exists before adding an event listener
     const forgotPasswordLink = document.getElementById("forgot-password-link");
@@ -174,5 +237,6 @@
             window.location.href = "dashboard.html";
         }, 5000);
     }</script>
+
 </body>
 </html>

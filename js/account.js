@@ -129,7 +129,6 @@ document.querySelector('form[action="php/account/change_password.php"]').addEven
     .catch(error => showToast("An error occurred.", "error"));
 });
 
-
     document.getElementById('logoutBtn').onclick = function() {
         window.location.href = 'login.html';
     };
