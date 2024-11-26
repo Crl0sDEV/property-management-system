@@ -26,36 +26,32 @@ const colorMap = {
 let tenants = []; // Tenant data from the server
 
 async function fetchOccupancyData() {
-    try {
-        const response = await fetch('php/occupancy/occupancy.php'); // PHP script to fetch tenant data
-        tenants = await response.json();
-        loadOccupancy();
-    } catch (error) {
-        console.error("Error fetching occupancy data:", error);
-    }
+try {
+    const response = await fetch('php/occupancy/occupancy.php'); // PHP script to fetch tenant data
+    tenants = await response.json();
+    loadOccupancy();
+} catch (error) {
+    console.error("Error fetching occupancy data:", error);
+}
 }
 
 function loadOccupancy() {
-    const occupancyTable = document.getElementById('occupancyTable').getElementsByTagName('tbody')[0];
-    occupancyTable.innerHTML = '';
+const occupancyTable = document.getElementById('occupancyTable').getElementsByTagName('tbody')[0];
+occupancyTable.innerHTML = '';
 
-    predefinedUnitColors.forEach(color => {
-        // Find a tenant assigned to the unit color
-        const tenant = tenants.find(tenant => tenant.unit_color === color);
-        const colorCode = colorMap[color] || 'white';
-        const status = tenant ? "Occupied" : "Available";
-        const name = tenant ? tenant.name : ""; // Display tenant name if occupied, otherwise "N/A"
+predefinedUnitColors.forEach(color => {
+    const tenant = tenants.find(tenant => tenant.unit_color === color);
+    const colorCode = colorMap[color] || 'white';
+    const status = tenant ? "Occupied" : "Available";
+    const name = tenant ? tenant.name : "";
 
-        const newRow = occupancyTable.insertRow();
-        newRow.innerHTML = `
-            <td>${name}</td>
-            <td style="background-color: ${colorCode};">${color}</td>
-            <td>${status}</td>
-        `;
-
-        // Set the background color based on the unit color using the colorMap
-        newRow.style.backgroundColor = colorMap[color] || '#FFFFFF'; // Default to white if color is not in the map
-    });
+    const newRow = occupancyTable.insertRow();
+    newRow.innerHTML = `
+        <td>${name}</td>
+        <td style="background-color: ${colorCode};">${color}</td>
+        <td>${status}</td>
+    `;
+});
 }
 
 document.getElementById('logoutBtn').onclick = function() {

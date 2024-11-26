@@ -9,33 +9,136 @@
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        .card-container {
-            display: flex;
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .card {
-            flex: 1;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            background-color: #ffffff;
-        }
-        .card h3 {
-            margin: 0;
-            font-size: 24px;
-            color: #333333;
-        }
-        .card p {
-            margin: 10px 0 0;
-            font-size: 18px;
-            color: #555555;
-        }
+.content h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.card-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    flex: 1 1 calc(30% - 20px);
+    padding: 20px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #4CAF50, #2e7d32);
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card h3 {
+    font-size: 36px;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.card p {
+    font-size: 16px;
+    margin: 0;
+    color: #e0f7e9;
+}
+
+.chart-layout {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* 3 columns, one for the pie chart and two for the bar charts */
+    gap: 20px;
+    align-items: start;
+}
+
+.chart-section {
+    display: flex;
+    justify-content: center;
+}
+
+.chart-box {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f7f7f7;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px; /* Limit the max width of the bar charts */
+}
+
+.pie-chart {
+    border: 2px solid #4CAF50; /* Box around the pie chart */
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+#occupancyChart {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+#monthlyIncomeChart, #maintenanceChart {
+    max-width: 100%;
+    max-height: 300px;
+}
+
+
+.due-tenants-container {
+    margin-top: 30px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.due-tenants-container h3 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+#dueTenantsTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    color: #555;
+}
+
+#dueTenantsTable th, #dueTenantsTable td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+#dueTenantsTable th {
+    background-color: #f9f9f9;
+    color: #333;
+    font-weight: bold;
+}
+
+#dueTenantsTable tr:hover {
+    background-color: #f1f1f1;
+}
+
+
     </style>
 </head>
-<body>
     <div class="sidebar">
         <a href="dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> DASHBOARD</a>
         <a href="tenant-info.html"><i class="fas fa-users"></i> TENANTS</a>
@@ -47,6 +150,7 @@
         <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> LOG OUT</a>
     </div>
 
+    <!-- Main content -->
     <div class="content">
         <h2>Dashboard</h2>
 
@@ -54,8 +158,218 @@
         <div class="card-container" id="tenantCardContainer">
             <!-- Cards will be dynamically populated -->
         </div>
+
+        <div class="chart-layout">
+    <!-- Pie Chart Box -->
+    <div class="chart-section pie-chart">
+        <canvas id="occupancyChart"></canvas>
     </div>
 
-    <script src="js/dashboard.js"></script>
+    <!-- Bar Graphs -->
+    <div class="chart-section">
+        <!-- Monthly Income Bar Chart Box -->
+        <div class="chart-box">
+            <canvas id="monthlyIncomeChart"></canvas>
+        </div>
+    </div>
+    <div class="chart-section">
+        <!-- Maintenance Bar Chart Box -->
+        <div class="chart-box">
+            <canvas id="maintenanceChart"></canvas>
+        </div>
+    </div>
+</div>
+
+    <div class="due-tenants-container">
+        <h3>Tenants with Due Payments</h3>
+        <table id="dueTenantsTable" border="1" style="width: 100%; text-align: left; margin-top: 10px;">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Payment Amount</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be dynamically populated -->
+            </tbody>
+        </table>
+    </div>
+    </div>
+
+    <script>
+        // Fetch tenant data dynamically
+        async function fetchTenantData() {
+            const response = await fetch('php/dashboard/get-tenant-data.php'); // Adjust endpoint if needed
+            const data = await response.json();
+            return data;
+        }
+
+        // Populate Card Boxes with Tenant Data
+        async function populateCards() {
+            const data = await fetchTenantData();
+
+            const tenantCardContainer = document.getElementById('tenantCardContainer');
+            tenantCardContainer.innerHTML = `
+                <div class="card">
+                    <h3>${data.tenantStatus.active}</h3>
+                    <p>Active Tenants</p>
+                </div>
+                <div class="card">
+                    <h3>${data.tenantStatus.archived}</h3>
+                    <p>Archived Tenants</p>
+                </div>
+            `;
+        }
+
+        // Render Pie Chart for Occupancy
+        async function renderOccupancyChart() {
+            const data = await fetchTenantData();
+
+            const maxUnits = 15;
+            const occupiedUnits = data.tenantStatus.occupied; // Adjust this key based on your API response
+            const availableUnits = maxUnits - occupiedUnits;
+
+            const ctx = document.getElementById('occupancyChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Occupied', 'Available'],
+                    datasets: [{
+                        data: [occupiedUnits, availableUnits],
+                        backgroundColor: ['#4CAF50', '#FF5252'],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                    },
+                }
+            });
+        }
+
+        async function renderMonthlyIncomeChart() {
+    const data = await fetchTenantData();
+
+    const incomeData = data.tenantStatus.monthlyIncome;
+    const labels = incomeData.map(item => item.month);
+    const incomes = incomeData.map(item => parseFloat(item.total_income));
+
+    const ctx = document.getElementById('monthlyIncomeChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Monthly Income',
+                data: incomes,
+                borderColor: '#4CAF50',
+                backgroundColor: 'rgba(76, 175, 80, 0.2)',
+                fill: true,
+                tension: 0.4,
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Month',
+                    },
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Income (PHP)',
+                    },
+                    beginAtZero: true,
+                },
+            },
+        },
+    });
+}
+
+async function renderMaintenanceChart() {
+    const response = await fetch('php/dashboard/get-tenant-data.php');
+    const data = await response.json();
+    const maintenanceData = data.tenantStatus.monthlyMaintenance;
+
+    const labels = maintenanceData.map(item => item.month);
+    const charges = maintenanceData.map(item => parseFloat(item.total_charge));
+
+    const ctx = document.getElementById('maintenanceChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Monthly Maintenance',
+                data: charges,
+                backgroundColor: '#FF9800',
+                borderColor: '#FF5722',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Month',
+                    },
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Charge Amount (PHP)',
+                    },
+                    beginAtZero: true,
+                },
+            },
+        },
+    });
+}
+
+async function populateDueTenants() {
+    const data = await fetchTenantData();
+
+    const dueTenants = data.tenantStatus.dueTenants;
+    const dueTenantsTableBody = document.querySelector('#dueTenantsTable tbody');
+
+    dueTenantsTableBody.innerHTML = dueTenants.map(tenant => `
+        <tr>
+            <td>${tenant.name}</td>
+            <td>${tenant.payment_amount}</td>
+            <td>${tenant.payment_status}</td>
+        </tr>
+    `).join('');
+}
+
+        populateCards();
+        renderOccupancyChart();
+        renderMonthlyIncomeChart();
+        renderMaintenanceChart();
+        populateDueTenants();
+
+        // Log Out Button Handler
+        document.getElementById('logoutBtn').onclick = function () {
+            window.location.href = 'login.html';
+        };
+    </script>
 </body>
 </html>
