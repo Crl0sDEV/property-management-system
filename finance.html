@@ -23,16 +23,18 @@
     </div>
 
     <div class="content">
-        <h1>Finance Management</h1>
+        <div class="navigation">
+            <h3>Finance Management</h3>
+        </div>
         
         <div class="income-maintenance">
             <div>
                 <h2>Monthly Income</h2>
-                <table id="monthlyIncomeTable">
+                <table id="monthlyIncomeTable" class="monthly-income-details">
                     <thead>
                         <tr>
                             <th>Tenant Name</th>
-                            <th>Room Color</th>
+                            <th>Unit Color</th>
                             <th>Amount Paid</th>
                         </tr>
                     </thead>
@@ -52,7 +54,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Unit Color</th>
-                            <th>Damage Description</th>
+                            <th>Damage</th>
                             <th>Amount</th>
                         </tr>
                     </thead>
@@ -67,12 +69,12 @@
             </div>
         </div>
 
-        <h2>Charge History</h2>
+        <h2 class="titlecharge">Charge History</h2>
         <table id="chargeHistoryTable" class="charge-history">
             <thead>
                 <tr>
                     <th>Tenant Name</th>
-                    <th>Room Color</th>
+                    <th>Unit Color</th>
                     <th>Charge Amount</th>
                     <th>Item Damaged</th>
                     <th>Date</th>

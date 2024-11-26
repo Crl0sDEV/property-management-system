@@ -76,10 +76,11 @@
 }
 
 .pie-chart {
-    border: 2px solid #4CAF50; /* Box around the pie chart */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Box around the pie chart */
     display: flex;
     justify-content: center;
     padding: 20px;
+    border-radius: 5px;
 }
 
 canvas {
@@ -101,7 +102,7 @@ canvas {
 .due-tenants-container {
     margin-top: 30px;
     padding: 20px;
-    background: #fff;
+    background-color: #f7f7f7;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -152,7 +153,9 @@ canvas {
 
     <!-- Main content -->
     <div class="content">
-        <h2>Dashboard</h2>
+        <div class="navigation">
+            <h3>Dashboard</h3>
+        </div>
 
         <!-- Card Box Container -->
         <div class="card-container" id="tenantCardContainer">
@@ -179,7 +182,7 @@ canvas {
         </div>
     </div>
 </div>
-
+    <!-- Due tenant Container -->
     <div class="due-tenants-container">
         <h3>Tenants with Due Payments</h3>
         <table id="dueTenantsTable" border="1" style="width: 100%; text-align: left; margin-top: 10px;">

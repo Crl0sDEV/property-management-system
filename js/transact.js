@@ -24,7 +24,7 @@ let currentTenantId = '';
                             </td>
                             <td>
                                 <button class="action-btn edit" onclick="openEditAmountModal(${tenant.id}, ${tenant.amount}, '${tenant.status}')"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
-                                <button class="action-btn view-details" onclick="viewPaymentHistory(${tenant.id}, '${tenant.name}')"><i class="fas fa-info-circle"></i> View Details</button>
+                                <button class="action-btn view-details" onclick="viewPaymentHistory(${tenant.id}, '${tenant.name}')"><i class="fas fa-info-circle"></i> Payment History</button>
                             </td>
                         `;
                         tenantTableBody.appendChild(row);

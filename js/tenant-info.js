@@ -43,10 +43,11 @@ function loadTenants() {}
           <td>${tenant.unit_color}</td>
           <td>${tenant.start_date}</td>
           <td>${tenant.end_date}</td>
-          <td><button class="view-details" onclick="showDetails('${tenant.date}', '${tenant.name}', '${tenant.birthday}', '${tenant.birthplace}', '${tenant.nationality}', '${tenant.civil_status}', '${tenant.previous_address}', '${tenant.province}', '${tenant.occupation}', '${tenant.address_of_workplace}', '${tenant.phone_number}', '${tenant.email_address}', '${tenant.emergency_contact_number}', '${tenant.spouse_name}', '${tenant.spouse_occupation}', '${tenant.spouse_workplace_address}', '${tenant.tenant_phone_number}', '${tenant.number_of_tenants}', '${tenant.unit_color}', '${tenant.id}', false)"><i class="fas fa-info-circle"></i> View Details</button>
-            <button class="edit-dates-btn" onclick="showEditDatesModal(${tenant.id}, '${tenant.start_date}', '${tenant.end_date}')">
-    <i class="fas fa-edit"></i> Edit Dates
+          <td>
+          <button class="edit-dates-btn" onclick="showEditDatesModal(${tenant.id}, '${tenant.start_date}', '${tenant.end_date}')">
+    <i class="fas fa-edit"></i> Edit Date
   </button>
+          <button class="view-details" onclick="showDetails('${tenant.date}', '${tenant.name}', '${tenant.birthday}', '${tenant.birthplace}', '${tenant.nationality}', '${tenant.civil_status}', '${tenant.previous_address}', '${tenant.province}', '${tenant.occupation}', '${tenant.address_of_workplace}', '${tenant.phone_number}', '${tenant.email_address}', '${tenant.emergency_contact_number}', '${tenant.spouse_name}', '${tenant.spouse_occupation}', '${tenant.spouse_workplace_address}', '${tenant.tenant_phone_number}', '${tenant.number_of_tenants}', '${tenant.unit_color}', '${tenant.id}', false)"><i class="fas fa-info-circle"></i> View Details</button>
             <button class="archive-btn" onclick="archiveTenant(${tenant.id})"><i class="fas fa-archive"></i></button>
             </td>
         `;
@@ -64,7 +65,7 @@ function loadTenants() {}
           <td>${tenant.unit_color}</td>
           <td>${tenant.start_date}</td>
           <td>${tenant.end_date}</td>
-          <td><button class="view-details" onclick="showDetails('${tenant.date}', '${tenant.name}', '${tenant.birthday}', '${tenant.birthplace}', '${tenant.nationality}', '${tenant.civil_status}', '${tenant.previous_address}', '${tenant.province}', '${tenant.occupation}', '${tenant.address_of_workplace}', '${tenant.phone_number}', '${tenant.email_address}', '${tenant.emergency_contact_number}', '${tenant.spouse_name}', '${tenant.spouse_occupation}', '${tenant.spouse_workplace_address}', '${tenant.tenant_phone_number}', '${tenant.number_of_tenants}', '${tenant.unit_color}', '${tenant.id}', true)"><i class="fas fa-info-circle"></i> Details</button>
+          <td><button class="view-details-btn" onclick="showDetails('${tenant.date}', '${tenant.name}', '${tenant.birthday}', '${tenant.birthplace}', '${tenant.nationality}', '${tenant.civil_status}', '${tenant.previous_address}', '${tenant.province}', '${tenant.occupation}', '${tenant.address_of_workplace}', '${tenant.phone_number}', '${tenant.email_address}', '${tenant.emergency_contact_number}', '${tenant.spouse_name}', '${tenant.spouse_occupation}', '${tenant.spouse_workplace_address}', '${tenant.tenant_phone_number}', '${tenant.number_of_tenants}', '${tenant.unit_color}', '${tenant.id}', true)"><i class="fas fa-info-circle"></i> Details</button>
             <button class="unarchive-btn" onclick="unarchiveTenant(${tenant.id})">
                 <i class="fas fa-undo"></i></button>
             </td>
