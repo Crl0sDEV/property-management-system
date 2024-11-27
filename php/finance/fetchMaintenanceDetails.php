@@ -1,11 +1,9 @@
 <?php
-// fetchMaintenanceDetails.php
 
-include ('connection.php'); // Include your database connection file
+include ('connection.php'); 
 
 header('Content-Type: application/json');
 
-// Fetch data from the `admin_charge_log` table
 $query = "SELECT * FROM admin_charge_log";
 $result = $conn->query($query);
 
@@ -17,6 +15,5 @@ if ($result && $result->num_rows > 0) {
     }
 }
 
-// Return the data as JSON
 echo json_encode($maintenanceData);
 ?>

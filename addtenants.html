@@ -2,10 +2,14 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" href="css/atstyles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
   </head>
   <body>
-    <button onclick="window.location.href='tenant-info.html'" style="position: absolute; top: 10px; left: 10px; padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px; ;">
-      Go Back
+    <button onclick="window.location.href='tenant-info.html'" class="back">
+      Back
     </button>
     <main id="main" class="main">
       <div class="pagetitle">
@@ -252,77 +256,166 @@
                 Unit Color:<span style="color: red"> *</span>
               </label>
               <div class="row">
-                <!-- First Column -->
                 <div class="col-md-4">
                   <div>
-                    <input type="radio" id="red" name="unit_color" value="Red" required />
+                    <input
+                      type="radio"
+                      id="red"
+                      name="unit_color"
+                      value="Red"
+                      required
+                    />
                     <label for="red">Red</label>
                   </div>
                   <div>
-                    <input type="radio" id="angel_blush" name="unit_color" value="Angel Blush" required />
+                    <input
+                      type="radio"
+                      id="angel_blush"
+                      name="unit_color"
+                      value="Angel Blush"
+                      required
+                    />
                     <label for="angel_blush">Angel Blush</label>
                   </div>
                   <div>
-                    <input type="radio" id="light_blue" name="unit_color" value="Light Blue" required />
+                    <input
+                      type="radio"
+                      id="light_blue"
+                      name="unit_color"
+                      value="Light Blue"
+                      required
+                    />
                     <label for="light_blue">Light Blue</label>
                   </div>
                   <div>
-                    <input type="radio" id="blue_green" name="unit_color" value="Blue Green" required />
+                    <input
+                      type="radio"
+                      id="blue_green"
+                      name="unit_color"
+                      value="Blue Green"
+                      required
+                    />
                     <label for="blue_green">Blue Green</label>
                   </div>
                   <div>
-                    <input type="radio" id="dark_blue" name="unit_color" value="Dark Blue" required />
+                    <input
+                      type="radio"
+                      id="dark_blue"
+                      name="unit_color"
+                      value="Dark Blue"
+                      required
+                    />
                     <label for="dark_blue">Dark Blue</label>
                   </div>
                 </div>
-                <!-- Second Column -->
+
                 <div class="col-md-4">
                   <div>
-                    <input type="radio" id="gold" name="unit_color" value="Gold" required />
+                    <input
+                      type="radio"
+                      id="gold"
+                      name="unit_color"
+                      value="Gold"
+                      required
+                    />
                     <label for="gold">Gold</label>
                   </div>
                   <div>
-                    <input type="radio" id="orange" name="unit_color" value="Orange" required />
+                    <input
+                      type="radio"
+                      id="orange"
+                      name="unit_color"
+                      value="Orange"
+                      required
+                    />
                     <label for="orange">Orange</label>
                   </div>
                   <div>
-                    <input type="radio" id="green_nile" name="unit_color" value="Green Nile" required />
+                    <input
+                      type="radio"
+                      id="green_nile"
+                      name="unit_color"
+                      value="Green Nile"
+                      required
+                    />
                     <label for="green_nile">Green Nile</label>
                   </div>
                   <div>
-                    <input type="radio" id="pink" name="unit_color" value="Pink" required />
+                    <input
+                      type="radio"
+                      id="pink"
+                      name="unit_color"
+                      value="Pink"
+                      required
+                    />
                     <label for="pink">Pink</label>
                   </div>
                   <div>
-                    <input type="radio" id="yellow_ribbon" name="unit_color" value="Yellow Ribbon" required />
+                    <input
+                      type="radio"
+                      id="yellow_ribbon"
+                      name="unit_color"
+                      value="Yellow Ribbon"
+                      required
+                    />
                     <label for="yellow_ribbon">Yellow Ribbon</label>
                   </div>
                 </div>
-                <!-- Third Column -->
+
                 <div class="col-md-4">
                   <div>
-                    <input type="radio" id="light_green" name="unit_color" value="Light Green" required />
+                    <input
+                      type="radio"
+                      id="light_green"
+                      name="unit_color"
+                      value="Light Green"
+                      required
+                    />
                     <label for="light_green">Light Green</label>
                   </div>
                   <div>
-                    <input type="radio" id="orcher" name="unit_color" value="Orcher" required />
+                    <input
+                      type="radio"
+                      id="orcher"
+                      name="unit_color"
+                      value="Orcher"
+                      required
+                    />
                     <label for="orcher">Orcher</label>
                   </div>
                   <div>
-                    <input type="radio" id="blue" name="unit_color" value="Blue" required />
+                    <input
+                      type="radio"
+                      id="blue"
+                      name="unit_color"
+                      value="Blue"
+                      required
+                    />
                     <label for="blue">Blue</label>
                   </div>
                   <div>
-                    <input type="radio" id="light_pink" name="unit_color" value="Light Pink" required />
+                    <input
+                      type="radio"
+                      id="light_pink"
+                      name="unit_color"
+                      value="Light Pink"
+                      required
+                    />
                     <label for="light_pink">Light Pink</label>
                   </div>
                   <div>
-                    <input type="radio" id="light_yellow" name="unit_color" value="Light Yellow" required />
+                    <input
+                      type="radio"
+                      id="light_yellow"
+                      name="unit_color"
+                      value="Light Yellow"
+                      required
+                    />
                     <label for="light_yellow">Light Yellow</label>
                   </div>
                 </div>
               </div>
-            </div>                                    
+            </div>
 
             <!-- Tenants Table -->
             <table class="tenant-table">
@@ -416,11 +509,8 @@
             </table>
 
             <div class="col-12">
-              <button
-                type="submit"
-                class="btn btn-primary"
-                id="submit-button"
-              >
+              <button type="submit" class="btn btn-primary" id="submit-button">
+                <i class="fa-solid fa-paper-plane"></i>
                 Submit
               </button>
             </div>
@@ -429,6 +519,5 @@
       </div>
     </main>
     <script src="js/addtenants.js"></script>
-      
   </body>
 </html>

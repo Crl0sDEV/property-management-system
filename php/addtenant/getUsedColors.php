@@ -1,8 +1,8 @@
 <?php
-// getUsedColors.php
+
 include ('connection.php');
 
-$query = "SELECT unit_color FROM tenant"; // Adjust 'tenants' to your table name
+$query = "SELECT unit_color FROM tenant"; 
 $result = mysqli_query($conn, $query);
 
 $usedColors = [];

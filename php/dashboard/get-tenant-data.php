@@ -1,8 +1,8 @@
 <?php
 header('Content-Type: application/json');
-include 'connection.php'; // Replace with your connection file
+include 'connection.php'; 
 
-// Query to count active, archived, and occupied tenants
+
 $query = "SELECT 
     (SELECT COUNT(*) FROM tenant) AS active, 
     (SELECT COUNT(*) FROM archived_tenant) AS archived,
@@ -11,10 +11,10 @@ $query = "SELECT
 $result = mysqli_query($conn, $query);
 $data = mysqli_fetch_assoc($result);
 
-// Add max units to the response for frontend calculations
+
 $data['maxUnits'] = 15;
 
-// Query to calculate total monthly income
+
 $incomeQuery = "SELECT 
                     DATE_FORMAT(payment_date, '%Y-%m') AS month, 
                     SUM(amount) AS total_income 
@@ -33,7 +33,7 @@ if ($incomeResult && mysqli_num_rows($incomeResult) > 0) {
 }
 $data['monthlyIncome'] = $monthlyIncome;
 
-// Query to fetch tenants with "due" payment status
+
 $dueQuery = "SELECT name, payment_amount, payment_status 
              FROM tenant 
              WHERE payment_status = 'due'";
@@ -48,7 +48,7 @@ if ($dueResult && mysqli_num_rows($dueResult) > 0) {
 }
 $data['dueTenants'] = $dueTenants;
 
-// Query to calculate total maintenance charges grouped by month
+
 $maintenanceQuery = "SELECT 
                         DATE_FORMAT(charge_date, '%Y-%m') AS month, 
                         SUM(charge_amount) AS total_charge 

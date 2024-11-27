@@ -1,91 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Finance - MarJuan Apartments</title>
-    <link rel="stylesheet" href="css/finance.css">
+    <link rel="stylesheet" href="css/finance.css" />
     <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-/>
-</head>
-<body>
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
     <div class="sidebar">
-        <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> DASHBOARD</a>
-        <a href="tenant-info.html"><i class="fas fa-users"></i> TENANTS</a>
-        <a href="occupancy.html"><i class="fas fa-home"></i> OCCUPANCY</a>
-        <a href="transact.html"><i class="fas fa-money-check-alt"></i> TRANSACTION</a>
-        <a href="room.html"><i class="fas fa-door-open"></i> ROOM</a>
-        <a href="finance.html" class="active"><i class="fas fa-wallet"></i> FINANCE</a> 
-        <a href="account.html"><i class="fas fa-user-circle"></i> ACCOUNT</a> 
-        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> LOG OUT</a>
+      <a href="dashboard.html"
+        ><i class="fas fa-tachometer-alt"></i> DASHBOARD</a
+      >
+      <a href="tenant-info.html"><i class="fas fa-users"></i> TENANTS</a>
+      <a href="occupancy.html"><i class="fas fa-home"></i> OCCUPANCY</a>
+      <a href="transact.html"
+        ><i class="fas fa-money-check-alt"></i> TRANSACTION</a
+      >
+      <a href="room.html"><i class="fas fa-door-open"></i> ROOM</a>
+      <a href="finance.html" class="active"
+        ><i class="fas fa-wallet"></i> FINANCE</a
+      >
+      <a href="account.html"><i class="fas fa-user-circle"></i> ACCOUNT</a>
+      <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> LOG OUT</a>
     </div>
 
     <div class="content">
-        <div class="navigation">
-            <h3>Finance Management</h3>
-        </div>
-        
-        <div class="income-maintenance">
-            <div>
-                <h2>Monthly Income</h2>
-                <table id="monthlyIncomeTable" class="monthly-income-details">
-                    <thead>
-                        <tr>
-                            <th>Tenant Name</th>
-                            <th>Unit Color</th>
-                            <th>Amount Paid</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Monthly income data will be loaded here dynamically -->
-                    </tbody>
-                </table>
-                <div class="total">
-                    <strong id="totalMonthlyIncome">Total Monthly Income: ₱0</strong>
-                </div>
-                <button class="btn" onclick="printIncomeReport()">Print Monthly Income Report</button>
-            </div>
-            <div>
-                <h2>Monthly Maintenance - ADMIN</h2>
-                <table id="maintenanceDetailsTable" class="maintenance-details">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Unit Color</th>
-                            <th>Damage</th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Maintenance details will be loaded here dynamically -->
-                    </tbody>
-                </table>
-                <div class="total">
-                    <strong id="totalMaintenanceCost">Total Maintenance Cost: ₱0</strong>
-                </div>
-                <button class="btn" onclick="printMaintenanceReport()">Print Maintenance Report</button>
-            </div>
-        </div>
+      <div class="navigation">
+        <h3>Finance Management</h3>
+      </div>
 
-        <h2 class="titlecharge">Charge History</h2>
-        <table id="chargeHistoryTable" class="charge-history">
+      <div class="income-maintenance">
+        <div>
+          <h2>Monthly Income</h2>
+          <table id="monthlyIncomeTable" class="monthly-income-details">
             <thead>
-                <tr>
-                    <th>Tenant Name</th>
-                    <th>Unit Color</th>
-                    <th>Charge Amount</th>
-                    <th>Item Damaged</th>
-                    <th>Date</th>
-                </tr>
+              <tr>
+                <th>Tenant Name</th>
+                <th>Unit Color</th>
+                <th>Amount Paid</th>
+              </tr>
             </thead>
-            <tbody>
-                <!-- Charge history data will be loaded here dynamically -->
-            </tbody>
-        </table>
+            <tbody></tbody>
+          </table>
+          <div class="total">
+            <strong id="totalMonthlyIncome">Total Monthly Income: ₱0</strong>
+          </div>
+          <button class="btn" onclick="printIncomeReport()">Print</button>
+        </div>
+        <div>
+          <h2>Monthly Maintenance - ADMIN</h2>
+          <table id="maintenanceDetailsTable" class="maintenance-details">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Unit Color</th>
+                <th>Damage</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <div class="total">
+            <strong id="totalMaintenanceCost"
+              >Total Maintenance Cost: ₱0</strong
+            >
+          </div>
+          <button class="btn" onclick="printMaintenanceReport()">Print</button>
+        </div>
+      </div>
+
+      <h2 class="titlecharge">Charge History</h2>
+      <table id="chargeHistoryTable" class="charge-history">
+        <thead>
+          <tr>
+            <th>Tenant Name</th>
+            <th>Unit Color</th>
+            <th>Charge Amount</th>
+            <th>Item Damaged</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
 
     <script src="js/finance.js"></script>
-</body>
+  </body>
 </html>

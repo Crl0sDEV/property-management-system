@@ -6,7 +6,7 @@ body {
     padding: 0;
 }
 
-/* Sidebar styling */
+
 .sidebar {
     height: 100vh;
     width: 250px;
@@ -39,7 +39,7 @@ body {
     color: white;
 }
 
-/* Main content styling */
+
 .content {
     margin-left: 270px;
     padding: 20px;
@@ -80,7 +80,7 @@ table td {
     border-bottom: 1px solid #ccc;
 }
 
-/* Modal styling */
+
 .modal {
     display: none; 
     position: fixed; 
@@ -121,7 +121,7 @@ table td {
     margin-top: 20px;
 }
 
-/* Message Modal */
+
 .message-modal {
     display: none; 
 }
@@ -165,7 +165,7 @@ table td {
 }
 
 
-/* Modal Styles */
+
 .modal {
     display: none;
     position: fixed;
@@ -200,7 +200,7 @@ table td {
     cursor: pointer;
 }
 
-/* Payment History Modal */
+
 .history-modal {
     display: none;
     position: fixed;
@@ -221,7 +221,20 @@ table td {
     border: 1px solid #888;
     width: 80%;
     max-width: 600px;
+    animation: fadeIn 0.3s ease-in-out;
 }
+
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
 #history-table {
     width: 100%;
     border-collapse: collapse;
@@ -257,11 +270,11 @@ table td {
     border-radius: 4px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   background-color: #f4f4f4;
-  color: #007bff;
+  color: #28A745;
 }
 
 .action-btn.view-details:hover{
-    background-color: #007bff;
+    background-color: #28A745;
   color: #f4f4f4;
 }
 
@@ -291,9 +304,21 @@ table td {
     position: relative;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     font-family: Arial, sans-serif;
+    animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Close button */
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+
 .close {
     color: #aaa;
     float: right;
@@ -308,14 +333,14 @@ table td {
     cursor: pointer;
 }
 
-/* Heading style for modal */
+
 .modal-content h2 {
     font-size: 24px;
     margin-bottom: 10px;
     color: #333;
 }
 
-/* Input and select fields */
+
 .modal-content label {
     font-weight: bold;
     color: #444;
@@ -333,21 +358,16 @@ table td {
     box-sizing: border-box;
 }
 
-/* Update button style */
-.modal-content .update {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 16px;
-    font-weight: bold;
-    margin-top: 10px;
-}
 
-.modal-content .update:hover {
-    background-color: #45a049;
-}
+.action-btn.update {
+    border-radius: 4px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+    background-color: #f4f4f4;
+    color: #007bff;
+  }
+  
+.action-btn.update:hover {
+    background-color: #007bff;
+    color: white;
+  }
 

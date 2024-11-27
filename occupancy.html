@@ -1,42 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Occupancy - MarJuan Apartments</title>
-    <link rel="stylesheet" href="css/occupancy.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-</head>
-<body>
+    <link rel="stylesheet" href="css/occupancy.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
     <div class="sidebar">
-        <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> DASHBOARD</a>
-        <a href="tenant-info.html"><i class="fas fa-users"></i> TENANTS</a>
-        <a href="occupancy.html" class="active"><i class="fas fa-home"></i> OCCUPANCY</a>
-        <a href="transact.html"><i class="fas fa-money-check-alt"></i> TRANSACTION</a>
-        <a href="room.html"><i class="fas fa-door-open"></i> ROOM</a>
-        <a href="finance.html"><i class="fas fa-wallet"></i> FINANCE</a> 
-        <a href="account.html"><i class="fas fa-user-circle"></i> ACCOUNT</a> 
-        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> LOG OUT</a>
+      <a href="dashboard.html"
+        ><i class="fas fa-tachometer-alt"></i> DASHBOARD</a
+      >
+      <a href="tenant-info.html"><i class="fas fa-users"></i> TENANTS</a>
+      <a href="occupancy.html" class="active"
+        ><i class="fas fa-home"></i> OCCUPANCY</a
+      >
+      <a href="transact.html"
+        ><i class="fas fa-money-check-alt"></i> TRANSACTION</a
+      >
+      <a href="room.html"><i class="fas fa-door-open"></i> ROOM</a>
+      <a href="finance.html"><i class="fas fa-wallet"></i> FINANCE</a>
+      <a href="account.html"><i class="fas fa-user-circle"></i> ACCOUNT</a>
+      <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> LOG OUT</a>
     </div>
 
     <div class="content">
-        <div class="navigation">
-            <h3>Occupancy Information</h3>
-        </div>
-        <table id="occupancyTable">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Unit Color</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Occupancy data will be inserted here -->
-            </tbody>
-        </table>
+      <div class="navigation">
+        <h3>Occupancy Information</h3>
+      </div>
+      <table id="occupancyTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Unit Color</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
 
     <script src="js/occupancy.js"></script>
-</body>
+  </body>
 </html>

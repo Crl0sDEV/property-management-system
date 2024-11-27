@@ -12,22 +12,28 @@
   </head>
   <body>
     <div class="sidebar">
-      <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> DASHBOARD</a>
-      <a href="tenant-info.html" class="active"><i class="fas fa-users"></i> TENANTS</a>
+      <a href="dashboard.html"
+        ><i class="fas fa-tachometer-alt"></i> DASHBOARD</a
+      >
+      <a href="tenant-info.html" class="active"
+        ><i class="fas fa-users"></i> TENANTS</a
+      >
       <a href="occupancy.html"><i class="fas fa-home"></i> OCCUPANCY</a>
-      <a href="transact.html"><i class="fas fa-money-check-alt"></i> TRANSACTION</a>
+      <a href="transact.html"
+        ><i class="fas fa-money-check-alt"></i> TRANSACTION</a
+      >
       <a href="room.html"><i class="fas fa-door-open"></i> ROOM</a>
-      <a href="finance.html"><i class="fas fa-wallet"></i> FINANCE</a> 
-      <a href="account.html"><i class="fas fa-user-circle"></i> ACCOUNT</a> 
+      <a href="finance.html"><i class="fas fa-wallet"></i> FINANCE</a>
+      <a href="account.html"><i class="fas fa-user-circle"></i> ACCOUNT</a>
       <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> LOG OUT</a>
-  </div>
+    </div>
 
     <div class="content">
       <div class="navigation">
         <h3>Tenant Information</h3>
       </div>
       <div class="header-container">
-        <h2>Current Tenants</h2>
+        <h2 class="current">Current Tenants</h2>
         <div class="header-actions">
           <div class="add-tenant-btn">
             <button onclick="window.location.href='addtenants.html'">
@@ -51,17 +57,15 @@
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
-          <!-- Tenant rows go here -->
-        </tbody>
+        <tbody></tbody>
       </table>
     </div>
 
     <div id="archivedModal" class="modal">
       <div class="modal-content">
         <span class="close" onclick="closeArchivedModal()">&times;</span>
-        <h2>Archived Tenants</h2>
-        <table id="archivedTenants">
+        <h2 class="archive">Archived Tenants</h2>
+        <table id="archivedTenants" class="archivedtenant">
           <thead>
             <tr>
               <th>Name</th>
@@ -71,9 +75,7 @@
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- Archived tenants will be appended here -->
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
     </div>
@@ -131,7 +133,7 @@
         </p>
         <p><strong>Unit Color:</strong> <span id="tenantUnitcolor"></span></p>
         <button
-          class="edit"
+          class="edit-btn"
           onclick="showEdit(
                 document.getElementById('tenantDate').innerText,
                 document.getElementById('tenantName').innerText,
@@ -172,7 +174,9 @@
             <label for="editEndDate">End Date:</label>
             <input type="date" id="editEndDate" required />
           </div>
-          <button type="submit" class="btn">Save</button>
+          <button type="submit" class="save-btn">
+            <i class="far fa-save"></i> Save
+          </button>
         </form>
       </div>
     </div>
@@ -258,7 +262,7 @@
             <label for="editNumberoftenants">Number of Tenants:</label>
             <input type="number" id="editNumberoftenants" />
           </div>
-          <button type="submit" class="btn">Update</button>
+          <button type="submit" class="update-btn">Update</button>
         </form>
       </div>
     </div>

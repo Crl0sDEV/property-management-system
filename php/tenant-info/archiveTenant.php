@@ -1,16 +1,16 @@
 <?php
-// Enable error reporting for debugging
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Set response type
+
 header('Content-Type: application/json');
 
-// Include database connection
+
 include('connection.php');
 
-// Start output buffering to prevent HTML output
+
 ob_start();
 
 $response = [];
@@ -54,7 +54,7 @@ if (isset($_GET['archive_id'])) {
             exit;
         }
 
-        // Define variables for tenant data
+        
 $name = $tenantData['name'] ?? '';
 $date = $tenantData['date'] ?? '';
 $birthday = $tenantData['birthday'] ?? '';
@@ -78,7 +78,7 @@ $id = $tenantData['id'];
 $start_date = $tenantData['start_date'] ?? '';
 $end_date = $tenantData['end_date'] ?? '';
 
-// Bind variables
+
 $insertStmt->bind_param(
     "ssssssssssssssssssssss",
     $name,

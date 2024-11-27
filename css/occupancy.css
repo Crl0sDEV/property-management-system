@@ -6,7 +6,7 @@ body {
     padding: 0;
 }
 
-/* Sidebar styling */
+
 .sidebar {
     height: 100vh;
     width: 250px;
@@ -39,7 +39,7 @@ body {
     color: white;
 }
 
-/* Main content styling */
+
 .content {
     margin-left: 270px;
     padding: 20px;
@@ -92,14 +92,14 @@ table td {
 }
 
 .btn-edit {
-    background-color: #007bff; /* Edit button - green */
+    background-color: #007bff;
 }
 
 .btn:hover {
     opacity: 0.9;
 }
 
-/* Modal styling */
+
 .modal {
     display: none; 
     position: fixed; 
@@ -153,26 +153,26 @@ table td {
     border-radius: 4px;
 }
 
-/* Modal Styling */
+
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top */
+    display: none;
+    position: fixed;
+    z-index: 1000;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
     background-color: #fefefe;
-    margin: 10% auto; /* Center vertically */
+    margin: 10% auto;
     padding: 20px;
     border-radius: 8px;
     width: 400px;
-    max-width: 90%; /* Responsive width */
+    max-width: 90%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: relative;
 }
@@ -221,7 +221,7 @@ select {
 }
 
 .btn {
-    background-color: #007bff; /* Blue */
+    background-color: #007bff;
     color: white;
     padding: 10px 20px;
     border: none;

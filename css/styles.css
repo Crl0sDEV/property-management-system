@@ -1,4 +1,4 @@
-/* General Styles */
+
 body {
     font-family: 'Century Gothic', sans-serif;
     background-color: #f4f4f4;
@@ -33,12 +33,12 @@ section {
     padding: 20px;
 }
 
-/* Home Page */
+
 .intro {
     text-align: center;
 }
 
-/* Property Listings */
+
 .property-card {
     background-color: #fff;
     padding: 15px;
@@ -71,7 +71,7 @@ section {
     color: #FFC63E;
 }
 
-/* Tenant Information */
+
 .tenant-card {
     background-color: #fff;
     padding: 15px;
@@ -99,7 +99,7 @@ section {
     color: #FFC63E;
 }
 
-/* Rental Agreements */
+
 .agreement-card {
     background-color: #fff;
     padding: 15px;
@@ -127,7 +127,7 @@ section {
     color: #FFC63E;
 }
 
-/* Maintenance Schedules */
+
 .maintenance-card {
     background-color: #fff;
     padding: 15px;
@@ -155,7 +155,7 @@ section {
     color: #FFC63E;
 }
 
-/* Rent Payments */
+
 .payment-card {
     background-color: #fff;
     padding: 15px;
@@ -183,7 +183,7 @@ section {
     color: #FFC63E;
 }
 
-/* Property Expenses */
+
 .expense-card {
     background-color: #fff;
     padding: 15px;

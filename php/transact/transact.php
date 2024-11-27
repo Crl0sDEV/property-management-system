@@ -16,7 +16,6 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $tenantId = $row['id'];
         
-        // Only initialize tenant array if it's not already set
         if (!isset($tenants[$tenantId])) {
             $tenants[$tenantId] = [
                 'name' => $row['name'],
@@ -24,12 +23,10 @@ if ($result->num_rows > 0) {
                 'status' => $row['payment_status'],
                 'id' => $tenantId,
                 'payment_history' => [],
-                // We store unit_color in the backend, but don't pass it to the frontend
                 'unit_color' => $row['unit_color']
             ];
         }
 
-        // Add payment history if available
         if ($row['payment_date']) {
             $tenants[$tenantId]['payment_history'][] = [
                 'date' => $row['payment_date'],
@@ -40,10 +37,8 @@ if ($result->num_rows > 0) {
     }
 }
 
-// Convert to a simple array to remove tenant ID keys
 $tenantArray = array_values($tenants);
 
-// Return the data as JSON (without 'unit_color')
 echo json_encode($tenantArray);
 
 $conn->close();

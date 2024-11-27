@@ -6,7 +6,7 @@ body {
   padding: 0;
 }
 
-/* Sidebar styling */
+
 .sidebar {
 height: 100vh;
 width: 250px;
@@ -39,7 +39,7 @@ background-color: #007bff;
 color: white;
 }
 
-/* Main content styling */
+
 .content {
   margin-left: 270px;
   padding: 20px;
@@ -59,6 +59,13 @@ color: #444;
 
 table {
   width: 90%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table.archivedtenant {
+  width: 100%;
   margin: 20px auto;
   border-collapse: collapse;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -98,11 +105,11 @@ table img {
 }
 
 .btn-archive {
-  background-color: #ff6347; /* Archive button - tomato red */
+  background-color: #ff6347;
 }
 
 .btn-edit {
-  background-color: #28a745; /* Edit button - green */
+  background-color: #28a745;
 }
 
 .btn:hover {
@@ -175,15 +182,39 @@ button.view-details {
   border-radius: 4px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   background-color: #f4f4f4;
-  color: #007bff;
+  color: #28A745;
 }
 
 button.view-details:hover {
-  background-color: #007bff;
+  background-color: #28A745;
   color: white;
 }
 
-/* Edit button styling */
+button.edit-btn {
+  border-radius: 4px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  background-color: #f4f4f4;
+  color: #28A745;
+}
+
+button.edit-btn:hover {
+  background-color: #28A745;
+  color: white;
+}
+
+button.update-btn {
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  background-color: #f4f4f4;
+  color: #28A745;
+}
+
+button.update-btn:hover {
+  background-color: #28A745;
+  color: white;
+}
+
+
 button.edit-dates-btn {
   border-radius: 4px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
@@ -207,9 +238,21 @@ button.archive-btn:hover{
   background-color: #444;
   color: white;
 }
-/* Modal Styling */
+
+button.save-btn{
+  border-radius: 4px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  background-color: #f4f4f4;
+  color: #007bff;
+}
+
+button.save-btn:hover{
+  background-color: #007bff;
+  color: white;
+}
+
 .modal {
-  display: none; /* Hidden by default */
+  display: none;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -217,15 +260,15 @@ button.archive-btn:hover{
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
-  background-color: #fff;
+  background-color: #f4f4f4;
   margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 60%;
+  width: 90%;
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   animation: fadeIn 0.3s ease-in-out;
@@ -246,11 +289,18 @@ button.archive-btn:hover{
   cursor: pointer;
 }
 
-h2 {
+.current {
   margin-top: 0;
   font-size: 24px;
   color: #333;
   margin-left: 40px;
+}
+
+.archive {
+  margin-top: 0;
+  font-size: 24px;
+  color: #333;
+  margin-left: 10px;
 }
 
 p {
@@ -264,7 +314,7 @@ p strong {
 }
 
 button.edit {
-  background-color: #4CAF50; /* Green */
+  background-color: #4CAF50;
   color: white;
   padding: 8px 16px;
   margin-top: 10px;
@@ -278,7 +328,7 @@ button.edit:hover {
   background-color: #45a049;
 }
 
-/* Animation for modal fade-in */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -290,7 +340,7 @@ button.edit:hover {
   }
 }
 
-/* General Modal Styling */
+
 .modal {
   display: none; 
   position: fixed;
@@ -308,7 +358,7 @@ button.edit:hover {
   margin: 5% auto;
   padding: 20px;
   border-radius: 8px;
-  width: 70%;
+  width: 100%;
   max-width: 700px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -327,7 +377,7 @@ button.edit:hover {
   cursor: pointer;
 }
 
-/* Edit Form Styling */
+
 #editModal h2 {
   margin-bottom: 20px;
   font-size: 24px;
@@ -361,25 +411,7 @@ button.edit:hover {
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
 }
 
-/* Update Button Styling */
-#editModal .btn {
-  width: 100%;
-  padding: 10px;
-  background-color: #28a745;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
 
-#editModal .btn:hover {
-  background-color: #218838;
-}
-
-/* Responsive Design */
 @media (max-width: 768px) {
   .modal-content {
     width: 90%;
@@ -404,7 +436,7 @@ color: #333;
 
 .header-actions {
 display: flex;
-gap: 10px; /* Space between buttons */
+gap: 10px;
 }
 
 .add-tenant-btn button,
@@ -426,7 +458,7 @@ cursor: pointer;
   border-radius: 4px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   background-color: #f4f4f4;
-  color: #007bff;
+  color: #444;
 }
 
 .add-tenant-btn button:hover {
@@ -435,28 +467,28 @@ cursor: pointer;
 }
 
 .archived-btn-container button:hover {
-  background-color: #007bff;
+  background-color: #444;
   color: white;
 }
 
-.view-details-btn{
+button.view-details-btn{
   border-radius: 4px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   background-color: #f4f4f4;
-  color: #007bff;
+  color: #28A745;
 }
 
-.view-details-btn:hover {
-  background-color: #007bff;
+button.view-details-btn:hover {
+  background-color: #28A745;
   color: #f4f4f4;
 }
-.unarchive-btn{
+button.unarchive-btn{
   border-radius: 4px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   background-color: #f4f4f4;
   color: #444;
 }
-.unarchive-btn:hover{
+button.unarchive-btn:hover{
   background-color: #444;
   color: #f4f4f4;
 }

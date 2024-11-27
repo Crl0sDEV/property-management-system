@@ -127,7 +127,7 @@ function loadTenants() {}
         selectedTenantId = id;
         document.getElementById("tenantModal").style.display = "block";
 
-        const editButton = document.querySelector(".edit");
+        const editButton = document.querySelector(".edit-btn");
         editButton.style.display = isArchived ? "none" : "block";
       }
 

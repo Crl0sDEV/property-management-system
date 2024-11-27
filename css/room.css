@@ -6,7 +6,7 @@ body {
     padding: 0;
 }
 
-/* Sidebar styling */
+
 .sidebar {
     height: 100vh;
     width: 250px;
@@ -39,7 +39,7 @@ body {
     color: white;
 }
 
-/* Main content styling */
+
 .content {
     margin-left: 270px;
     padding: 20px;
@@ -102,7 +102,7 @@ table td {
   color: #f4f4f4;
 }
 
-/* Modal styling */
+
 .modal {
     display: none; 
     position: fixed; 
@@ -156,22 +156,22 @@ table td {
 }
 
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none;
+    position: fixed;
+    z-index: 1;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto; /* Center the modal */
+    margin: 15% auto;
     padding: 20px;
     border-radius: 8px;
-    width: 400px; /* Set width of the modal */
+    width: 400px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     position: relative;
     text-align: center;
@@ -226,13 +226,25 @@ table td {
 }
 
 .button-group .left {
-    background-color: #4CAF50; /* Adjust color if needed */
-    color: white;
-    margin-right: auto; /* Pushes the button to the left */
+    border-radius: 4px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  background-color: #f4f4f4;
+  color: #4CAF50;
+}
+
+.button-group .left:hover{
+    background-color: #4CAF50;
+    color:#f4f4f4;
 }
 
 .button-group .right {
-    background-color: #f44336; /* Adjust color if needed */
-    color: white;
-    margin-left: auto; /* Pushes the button to the right */
+    border-radius: 4px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  background-color: #f4f4f4;
+  color: #f44336;
+}
+
+.button-group .right:hover{
+    background-color: #f44336;
+  color: #f4f4f4;
 }

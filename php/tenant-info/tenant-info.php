@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 header('Content-Type: application/json');
 include ('connection.php');
 
-// Fetch current tenants
+
 $currentTenants = [];
 $currentQuery = "SELECT * FROM tenant";
 $currentResult = $conn->query($currentQuery);
@@ -17,7 +17,7 @@ if ($currentResult && $currentResult->num_rows > 0) {
     }
 }
 
-// Fetch archived tenants
+
 $archivedTenants = [];
 $archivedQuery = "SELECT * FROM archived_tenant";
 $archivedResult = $conn->query($archivedQuery);
@@ -27,7 +27,7 @@ if ($archivedResult && $archivedResult->num_rows > 0) {
     }
 }
 
-// Unarchiving a tenant
+
 if (isset($_GET['unarchive_id'])) {
     $unarchive_id = $_GET['unarchive_id'];
     $query = "INSERT INTO tenant (name, date, birthday, birthplace, nationality, civil_status, previous_address, province, occupation, address_of_workplace, phone_number, email_address, emergency_contact_number, spouse_name, spouse_occupation, spouse_workplace_address, tenant_phone_number, number_of_tenants, unit_color, id, start_date, end_date) 
@@ -49,7 +49,7 @@ if (isset($_GET['unarchive_id'])) {
     exit;
 }
 
-// Output all tenants
+
 echo json_encode(['currentTenants' => $currentTenants, 'archivedTenants' => $archivedTenants]);
 
 $conn->close();

@@ -10,7 +10,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     $tenants[] = $row;
 }
 
-// Update occupancy status in the database
 $predefinedUnitColors = [
     "Red", "Angel Blush", "Light Blue", "Blue Green", "Dark Blue",
     "Gold", "Orange", "Green Nile", "Pink", "Yellow Ribbon",

@@ -9,7 +9,7 @@ body {
     display: flex;
 }
 
-/* Sidebar styling */
+
 .sidebar {
     height: 100vh;
     width: 250px;
@@ -42,9 +42,9 @@ body {
     color: white;
 }
 
-/* Main content */
+
 .content {
-    margin-left: 260px; /* Leave space for the sidebar */
+    margin-left: 260px;
     padding: 20px;
     flex: 1;
 }
@@ -66,7 +66,7 @@ body {
     margin-bottom: 10px;
 }
 
-/* Buttons */
+
 button {
     background-color: #007bff;
     color: white;
@@ -91,4 +91,130 @@ button:hover {
 
 .navigation h3{
     color: #444;
+}
+
+.content h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.card-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    flex: 1 1 calc(30% - 20px);
+    padding: 20px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #4CAF50, #2e7d32);
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card h3 {
+    font-size: 36px;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.card p {
+    font-size: 16px;
+    margin: 0;
+    color: #e0f7e9;
+}
+
+.chart-layout {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+.chart-section {
+    display: flex;
+    justify-content: center;
+}
+
+.chart-box {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f7f7f7;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.pie-chart {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+#occupancyChart {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+#monthlyIncomeChart, #maintenanceChart {
+    max-width: 100%;
+    max-height: 300px;
+}
+
+
+.due-tenants-container {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.due-tenants-container h3 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+#dueTenantsTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    color: #555;
+}
+
+#dueTenantsTable th, #dueTenantsTable td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+#dueTenantsTable th {
+    background-color: #f9f9f9;
+    color: #333;
+    font-weight: bold;
+}
+
+#dueTenantsTable tr:hover {
+    background-color: #f1f1f1;
 }
