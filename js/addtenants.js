@@ -1,7 +1,7 @@
 const form = document.getElementById("tenantForm");
       const notification = document.getElementById("notification");
 
-      // Handle form submission with JavaScript
+      
       form.addEventListener("submit", function (event) {
         event.preventDefault();
 
@@ -14,13 +14,13 @@ const form = document.getElementById("tenantForm");
           .then((response) => response.json())
           .then((data) => {
             if (data.status === "success") {
-              // Show the success notification
+              
               notification.textContent = "Form submitted successfully!";
-              notification.style.backgroundColor = "#4CAF50"; // Green
+              notification.style.backgroundColor = "#4CAF50"; 
             } else {
               notification.textContent =
                 "Error: " + (data.message || "Something went wrong!");
-              notification.style.backgroundColor = "#f44336"; // Red
+              notification.style.backgroundColor = "#f44336"; 
             }
 
             notification.classList.add("show");
@@ -46,14 +46,14 @@ const form = document.getElementById("tenantForm");
       });
 
       document.addEventListener('DOMContentLoaded', () => {
-        fetch('php/addtenant/getUsedColors.php') // Replace with the correct path to your PHP file
+        fetch('php/addtenant/getUsedColors.php') 
             .then(response => response.json())
             .then(usedColors => {
                 usedColors.forEach(color => {
                     const colorInput = document.querySelector(`input[value="${color}"]`);
                     if (colorInput) {
                         colorInput.disabled = true;
-                        colorInput.parentElement.style.opacity = 0.5; // Optional: visually indicate unavailability
+                        colorInput.parentElement.style.opacity = 0.5; 
                     }
                 });
             })

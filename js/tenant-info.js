@@ -261,7 +261,7 @@ function loadTenants() {}
           .then((response) => response.json())
           .then((result) => {
             if (result.success) {
-              // Reload tenant data to reflect changes
+              
               loadTenants();
               alert("Tenant has been successfully unarchived.");
             } else {
@@ -272,7 +272,7 @@ function loadTenants() {}
       }
 
       function showEditDatesModal(id, startDate, endDate) {
-        selectedTenantId = id; // Store the selected tenant ID
+        selectedTenantId = id; 
         document.getElementById("editStartDate").value = startDate;
         document.getElementById("editEndDate").value = endDate;
         document.getElementById("editDatesModal").style.display = "block";
@@ -287,7 +287,7 @@ function loadTenants() {}
         const startDate = document.getElementById("editStartDate").value;
         const endDate = document.getElementById("editEndDate").value;
 
-        // Send data to the server
+        
         fetch("php/tenant-info/update-dates.php", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -301,7 +301,7 @@ function loadTenants() {}
           .then((result) => {
             if (result.success) {
               alert("Dates updated successfully!");
-              loadTenants(); // Refresh the table
+              loadTenants(); 
             } else {
               alert("Failed to update dates.");
             }

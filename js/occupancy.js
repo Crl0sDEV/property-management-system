@@ -4,7 +4,7 @@ const predefinedUnitColors = [
     "Light Green", "Orcher", "Blue", "Light Pink", "Light Yellow"
 ];
 
-// Map of unit color names to background color codes
+
 const colorMap = {
     'Red': 'red',
     'Angel Blush': '#F7D1D1',
@@ -23,11 +23,11 @@ const colorMap = {
     'Light Yellow': '#FFFFE0'
 };
 
-let tenants = []; // Tenant data from the server
+let tenants = []; 
 
 async function fetchOccupancyData() {
 try {
-    const response = await fetch('php/occupancy/occupancy.php'); // PHP script to fetch tenant data
+    const response = await fetch('php/occupancy/occupancy.php'); 
     tenants = await response.json();
     loadOccupancy();
 } catch (error) {

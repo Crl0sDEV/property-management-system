@@ -1,17 +1,17 @@
-// Function to fetch user data from the server using AJAX
+
 window.onload = function() {
     fetchUserData();
 };
 
 function fetchUserData() {
-    fetch('php/account/account.php')  // Request data from account.php
-        .then(response => response.json())  // Parse JSON response
+    fetch('php/account/account.php')  
+        .then(response => response.json())  
         .then(data => {
-            // Check if the response has user data
+            
             if (data.error) {
                 console.error("Error: " + data.error);
             } else {
-                // Insert data into the HTML
+                
                 document.getElementById('user-name').textContent = data.name;
                 document.getElementById('user-role').textContent = data.role;
                 document.getElementById('user-email').textContent = data.email;
@@ -19,7 +19,7 @@ function fetchUserData() {
         })
         .catch(error => console.error('Error fetching user data:', error));
 }
-    // Get elements
+    
     const profileBtn = document.getElementById('profile-btn');
     const accountDetailsBtn = document.getElementById('account-details-btn');
     const changePasswordBtn = document.getElementById('change-password-btn');
@@ -30,7 +30,7 @@ function fetchUserData() {
     const changePassword = document.getElementById('change-password');
     const loginPage = document.getElementById('login-page');
 
-    // Event listeners for sidebar buttons
+    
     profileBtn.addEventListener('click', function() {
         showPage(profile);
     });
@@ -47,7 +47,7 @@ function fetchUserData() {
         showPage(loginPage);
     });
 
-    // Function to display the clicked section and hide others
+    
     function showPage(page) {
         profile.classList.add('hidden');
         accountDetails.classList.add('hidden');
@@ -57,7 +57,7 @@ function fetchUserData() {
         page.classList.remove('hidden');
     }
 
-    // Toggle password visibility
+    
 document.querySelectorAll('.toggle-password').forEach(icon => {
     icon.addEventListener('click', function() {
         const targetId = this.getAttribute('data-target');
@@ -83,7 +83,7 @@ function showToast(message, type = "success") {
 
     toastContainer.appendChild(toast);
 
-    // Remove the toast after 4 seconds
+    
     setTimeout(() => {
         toast.remove();
     }, 4000);

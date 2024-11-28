@@ -10,10 +10,10 @@ let currentTenantId = '';
                     tenantTableBody.innerHTML = ''; 
                     
                     data.forEach(tenant => {
-                        // Check if the tenant status is set
+                        
                         const statusClass = tenant.status === 'Paid' 
                             ? 'status-paid' 
-                            : (tenant.status === 'Due' ? 'status-due' : 'status-pending');  // Default to 'status-pending' if status is not set
+                            : (tenant.status === 'Due' ? 'status-due' : 'status-pending');  
             
                         const row = document.createElement('tr');
                         row.innerHTML = ` 

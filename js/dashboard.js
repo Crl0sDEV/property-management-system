@@ -1,10 +1,10 @@
 async function fetchTenantData() {
-    const response = await fetch('php/dashboard/get-tenant-data.php'); // Adjust endpoint if needed
+    const response = await fetch('php/dashboard/get-tenant-data.php'); 
     const data = await response.json();
     return data;
 }
 
-// Populate Card Boxes with Tenant Data
+
 async function populateCards() {
     const data = await fetchTenantData();
 
@@ -21,12 +21,12 @@ async function populateCards() {
     `;
 }
 
-// Render Pie Chart for Occupancy
+
 async function renderOccupancyChart() {
     const data = await fetchTenantData();
 
     const maxUnits = 15;
-    const occupiedUnits = data.tenantStatus.occupied; // Adjust this key based on your API response
+    const occupiedUnits = data.tenantStatus.occupied; 
     const availableUnits = maxUnits - occupiedUnits;
 
     const ctx = document.getElementById('occupancyChart').getContext('2d');
@@ -165,7 +165,7 @@ renderMonthlyIncomeChart();
 renderMaintenanceChart();
 populateDueTenants();
 
-// Log Out Button Handler
+
 document.getElementById('logoutBtn').onclick = function () {
     window.location.href = 'login.html';
 };

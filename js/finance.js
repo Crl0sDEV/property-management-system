@@ -16,7 +16,7 @@ async function fetchFinanceData() {
 
 function loadMonthlyIncomeData(incomeData) {
     const tableBody = document.getElementById('monthlyIncomeTable').querySelector('tbody');
-    tableBody.innerHTML = '';  // Clear any previous data
+    tableBody.innerHTML = '';  
 
     let totalIncome = 0;
 
@@ -30,7 +30,7 @@ function loadMonthlyIncomeData(incomeData) {
         totalIncome += parseFloat(item.amount);
     });
 
-    // Update the total monthly income
+    
     document.getElementById('totalMonthlyIncome').textContent = `Total Monthly Income: ₱${totalIncome.toFixed(2)}`;
 }
 
@@ -100,7 +100,7 @@ function loadMonthlyIncomeData(incomeData) {
                     const tableBody = document.querySelector("#maintenanceDetailsTable tbody");
                     let totalCost = 0;
         
-                    tableBody.innerHTML = ""; // Clear existing rows
+                    tableBody.innerHTML = ""; 
         
                     data.forEach((entry) => {
                         const row = document.createElement("tr");
@@ -117,7 +117,7 @@ function loadMonthlyIncomeData(incomeData) {
                         totalCost += parseFloat(entry.charge_amount);
                     });
         
-                    // Update total cost
+                    
                     document.getElementById("totalMaintenanceCost").textContent = `Total Maintenance Cost: ₱${totalCost.toFixed(2)}`;
                 })
                 .catch((error) => {

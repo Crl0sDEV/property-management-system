@@ -45,21 +45,39 @@ let currentRow;
                 // Find tenant that matches this unit color
                 const tenant = rooms.find(room => room.unit_color === color);
                 const colorCode = colorMap[color] || 'white'; // Default to white if color not found
-
+            
                 const newRow = roomTable.insertRow();
                 newRow.innerHTML = `
-                    <td>${tenant ? tenant.name : ''}</td>
-                    <td style="background-color: ${colorCode};">${color}</td>
-                    <td>${tenant ? tenant.damage_description : ''}</td>
-                    <td class="charge-amount">${tenant ? `₱${tenant.charge_amount}` : '₱0'}</td>
-                    <td>
-                        <button class="btn btn-charge" ${tenant ? '' : 'disabled'} onclick="openChargeModal('${tenant ? tenant.name : ''}', '${color}', ${tenant ? tenant.charge_amount : 0}, this)">
-                            <i class="fa-solid fa-peso-sign"></i> Charge
-                        </button>
-                    </td>
-                `;
+    <td>${tenant ? tenant.name : ''}</td>
+    <td style="background-color: ${colorCode};">${color}</td>
+    <td>${tenant ? tenant.damage_description : ''}</td>
+    <td class="charge-amount">${tenant ? `₱${tenant.charge_amount}` : '₱0'}</td>
+    <td>
+        <button 
+            class="btn btn-charge" 
+            ${tenant ? '' : 'disabled'}
+            onclick="handleChargeButtonClick(event, '${tenant ? tenant.name : ''}', '${color}', ${tenant ? tenant.charge_amount : 0})"
+        >
+            <i class="fa-solid fa-peso-sign"></i> Charge
+        </button>
+    </td>
+`;
             });
         }
+
+        window.addEventListener('DOMContentLoaded', fetchRoomData);
+
+function handleChargeButtonClick(event, tenantName, color, chargeAmount) {
+    console.log("Button clicked!"); // Debugging log
+    const button = event.currentTarget;
+
+    if (button.disabled) {
+        alert("No tenant occupied.");
+        return;
+    }
+    
+    openChargeModal(tenantName, color, chargeAmount, button);
+}
 
         function openChargeModal(name, unitColor, currentCharge, btnElement) {
             if (name) {
